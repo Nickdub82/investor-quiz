@@ -3,139 +3,1619 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Your Investor Archetype Report</title>
+<title>Behavioral Dossier — Confidential Profile</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          sans: ['Inter Tight', 'system-ui', 'sans-serif'],
+        },
+        colors: {
+          cream: '#F7F2EA', 'cream-deep': '#EFE7DA', 'cream-soft': '#FBF7F0',
+          ink: '#1A1F2E', 'ink-soft': '#2D3447', 'ink-muted': '#5A6275',
+          gold: '#B8894A', 'gold-light': '#D4AE77', 'gold-deep': '#8E6935', 'gold-pale': '#E8D3B0',
+          sage: '#6B8370', clay: '#C4745D', 'clay-deep': '#A85640',
+        },
+      }
+    }
+  }
+</script>
 
 <style>
-body {
-  font-family: 'Inter', sans-serif;
-  background: #F7F2EA;
-  color: #1A1F2E;
-}
-h1,h2,h3 { font-family: 'Fraunces', serif; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    background-color: #F7F2EA; color: #1A1F2E;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  main, nav, footer { position: relative; z-index: 2; }
+  .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+  .serif-italic { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; }
+  .display-tight { font-family: 'Fraunces', serif; letter-spacing: -0.02em; line-height: 0.95; }
+
+  .ornament { display: inline-block; width: 40px; height: 1px; background: #B8894A; vertical-align: middle; }
+  .ornament-lg { display: inline-block; width: 64px; height: 1px; background: #B8894A; }
+
+  .chapter-divider { display: flex; align-items: center; gap: 1.25rem; color: #8E6935; }
+  .chapter-divider::before, .chapter-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(142,105,53,0.3), transparent);
+  }
+
+  .atmosphere { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+
+  .card-paper {
+    background: rgba(255, 253, 248, 0.7); backdrop-filter: blur(6px);
+    border: 1px solid rgba(26, 31, 46, 0.08); border-radius: 2px;
+  }
+  .card-ink { background: #1A1F2E; color: #F7F2EA; border-radius: 2px; }
+
+  .corner-marks { position: absolute; width: 24px; height: 24px; border-color: #B8894A; border-style: solid; opacity: 0.7; }
+  .cm-tl { top: 16px; left: 16px; border-width: 1px 0 0 1px; }
+  .cm-tr { top: 16px; right: 16px; border-width: 1px 1px 0 0; }
+  .cm-bl { bottom: 16px; left: 16px; border-width: 0 0 1px 1px; }
+  .cm-br { bottom: 16px; right: 16px; border-width: 0 1px 1px 0; }
+
+  .stamp {
+    border: 1.5px solid #B8894A; color: #8E6935; padding: 0.4rem 0.9rem;
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 500;
+    display: inline-block; transform: rotate(-1deg);
+  }
+
+  .score-ring-bg { stroke: rgba(26, 31, 46, 0.08); }
+  .score-ring {
+    stroke: #B8894A; stroke-linecap: round;
+    transform: rotate(-90deg); transform-origin: center;
+    animation: drawRing 1.6s cubic-bezier(0.25, 0.5, 0.25, 1) both;
+  }
+  @keyframes drawRing { from { stroke-dasharray: 0 1000; } }
+
+  .bar-fill { transform-origin: left; animation: growBar 1.4s cubic-bezier(0.22, 0.6, 0.36, 1) both; }
+  @keyframes growBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  .radar-polygon { transform-origin: center; animation: radarIn 1.4s cubic-bezier(0.22, 0.6, 0.36, 1) 0.3s both; }
+  @keyframes radarIn { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
+
+  .fade-up { animation: fadeUp 0.9s cubic-bezier(0.22, 0.6, 0.36, 1) both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  .drop-cap::first-letter {
+    font-family: 'Fraunces', serif; font-size: 4.5rem; float: left; line-height: 0.85;
+    padding: 0.35rem 0.75rem 0 0; color: #8E6935; font-weight: 500; font-style: italic;
+  }
+
+  .pull-quote { font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; line-height: 1.25; letter-spacing: -0.01em; }
+
+  .meter-track { height: 2px; background: rgba(26, 31, 46, 0.12); position: relative; border-radius: 2px; }
+  .meter-dot {
+    position: absolute; top: 50%; width: 14px; height: 14px;
+    background: #B8894A; border: 2px solid #F7F2EA; border-radius: 50%;
+    transform: translate(-50%, -50%); box-shadow: 0 2px 8px rgba(184, 137, 74, 0.4);
+  }
+  .meter-tick { position: absolute; top: -3px; width: 1px; height: 8px; background: rgba(26, 31, 46, 0.2); }
+
+  .section-number {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
+    color: rgba(142, 105, 53, 0.5); font-size: 0.85rem; letter-spacing: 0.05em;
+  }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.35rem 0.7rem;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+    border: 1px solid rgba(142, 105, 53, 0.3); color: #8E6935;
+    border-radius: 999px; background: rgba(232, 211, 176, 0.15);
+  }
+
+  .signature {
+    font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
+    font-size: 1.75rem; color: #1A1F2E; transform: rotate(-2deg); display: inline-block;
+  }
+
+  .portfolio-wedge {
+    display: flex; height: 10px; border-radius: 999px; overflow: hidden;
+    background: rgba(26, 31, 46, 0.08);
+  }
+
+  .brutal-card {
+    background: linear-gradient(135deg, #0F1320 0%, #1A1F2E 100%);
+    border-top: 2px solid #C4745D; position: relative; overflow: hidden;
+  }
+  .brutal-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(196, 116, 93, 0.15), transparent 60%);
+    pointer-events: none;
+  }
+
+  .scenario { position: relative; padding-left: 2rem; }
+  .scenario::before {
+    content: ''; position: absolute; left: 0; top: 0.45rem; bottom: 0.45rem;
+    width: 2px; background: linear-gradient(180deg, #B8894A, transparent);
+  }
+
+  .path-dark { background: #1A1F2E; color: #F7F2EA; }
+  .path-light {
+    background: linear-gradient(135deg, rgba(255,253,248,0.9), rgba(232,211,176,0.3));
+    border: 1px solid rgba(184, 137, 74, 0.3);
+  }
+
+  @media print {
+    body::before { display: none; }
+    .atmosphere { display: none; }
+    .no-print { display: none !important; }
+    section { page-break-inside: avoid; }
+    .chapter { page-break-before: always; }
+    .chapter:first-of-type { page-break-before: auto; }
+    body { background: white; }
+  }
+  @media (max-width: 768px) {
+    .display-tight { line-height: 1.0; }
+    .drop-cap::first-letter { font-size: 3.5rem; }
+  }
+  * { -webkit-tap-highlight-color: transparent; }
 </style>
 </head>
 
-<body class="px-6 py-12">
+<body class="font-sans">
 
-<div class="max-w-3xl mx-auto">
+<nav class="relative z-10 px-6 md:px-12 py-5 flex items-center justify-between border-b border-ink/5 no-print">
+  <a href="/" class="flex items-center gap-2.5">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
+      <circle cx="14" cy="14" r="13" stroke="#1A1F2E" stroke-width="1.2"/>
+      <path d="M9 18V10L14 16L19 10V18" stroke="#B8894A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="font-display text-base font-medium tracking-tight">Investor Archetype</span>
+  </a>
+  <div class="flex items-center gap-4 md:gap-6 text-xs text-ink-muted">
+    <span class="hidden md:inline tracking-widest uppercase">Confidential Dossier</span>
+    <span class="hidden md:inline text-gold">◆</span>
+    <a href="/" class="hover:text-ink transition flex items-center gap-1.5">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to home
+    </a>
+  </div>
+</nav>
 
-<!-- HEADER -->
-<div class="text-center mb-12">
-  <h1 class="text-4xl md:text-5xl mb-4">Your Investor Profile</h1>
-  <h2 class="text-3xl text-[#B8894A] italic">The Calculated Dreamer</h2>
-</div>
+<main class="relative">
 
-<!-- INTRO (PSYCHOLOGICAL HOOK) -->
-<div class="mb-10 text-lg leading-relaxed text-gray-700">
+  <!-- I. IDENTITY / COVER -->
+  <section class="chapter relative px-6 md:px-12 pt-16 md:pt-24 pb-20 md:pb-28 overflow-hidden">
+    <div class="atmosphere" style="width:600px; height:600px; background:#D4AE77; top:-180px; right:-140px; opacity:0.3;"></div>
+    <div class="atmosphere" style="width:440px; height:440px; background:#8FC4BD; bottom:-120px; left:-100px; opacity:0.15;"></div>
 
-  Most people with your profile believe they are rational with money.
+    <div class="max-w-6xl mx-auto relative">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-16 md:mb-24 fade-up">
+        <div class="flex items-center gap-4 text-xs text-ink-muted tracking-[0.2em] uppercase">
+          <span class="font-medium">Dossier No. <span id="dossier-no">—</span></span>
+          <span class="text-gold">◆</span>
+          <span>Behavioral Profile</span>
+          <span class="text-gold hidden sm:inline">◆</span>
+          <span class="hidden sm:inline" id="date-issued">2026 Edition</span>
+        </div>
+        <div class="stamp">Private · Not for Distribution</div>
+      </div>
 
-  <br><br>
+      <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start fade-up" style="animation-delay: 0.1s">
+        <div class="md:col-span-7">
+          <div class="flex items-center gap-3 mb-10">
+            <span class="section-number">I.</span>
+            <span class="ornament-lg"></span>
+            <span class="text-xs tracking-[0.3em] uppercase text-gold-deep font-medium">Identity</span>
+          </div>
+          <div class="mb-4 text-sm text-ink-muted tracking-widest uppercase">Behavioral Dossier for</div>
+          <h1 class="display-tight text-5xl md:text-7xl text-ink font-normal mb-8">
+            <span id="name-cover">Nicholas</span>
+          </h1>
+          <div class="flex items-center gap-3 mb-10">
+            <div class="h-px flex-1 max-w-[80px] bg-ink/20"></div>
+            <span class="text-xs tracking-[0.25em] uppercase text-ink-muted">Archetype</span>
+          </div>
+          <div class="font-display italic text-3xl md:text-5xl text-gold-deep mb-10" id="archetype-full"></div>
+          <p id="intro-paragraph" class="text-lg md:text-xl text-ink-soft leading-relaxed max-w-xl font-light"></p>
+          <div class="mt-8 max-w-xl">
+            <p id="signal-line" class="font-display text-2xl md:text-3xl leading-tight text-ink">
+              This will not tell you who you are.
+              <span class="serif-italic text-gold-deep">It will show you what you keep doing.</span>
+            </p>
+          </div>
 
-  They’re not.
+          <div class="grid sm:grid-cols-3 gap-4 mt-10 max-w-3xl">
+            <div class="card-paper p-4">
+              <div class="text-[10px] tracking-[0.24em] uppercase text-ink-muted mb-2">Core strength</div>
+              <div id="summary-strength" class="font-display text-lg leading-snug text-ink"></div>
+            </div>
+            <div class="card-paper p-4">
+              <div class="text-[10px] tracking-[0.24em] uppercase text-ink-muted mb-2">Blind spot</div>
+              <div id="summary-blindspot" class="font-display text-lg leading-snug text-ink"></div>
+            </div>
+            <div class="card-paper p-4">
+              <div class="text-[10px] tracking-[0.24em] uppercase text-ink-muted mb-2">Best edge</div>
+              <div id="summary-edge" class="font-display text-lg leading-snug text-ink"></div>
+            </div>
+          </div>
+        </div>
 
-  <br><br>
+        <div class="md:col-span-5">
+          <div class="card-paper relative p-8 md:p-10">
+            <div class="corner-marks cm-tl"></div><div class="corner-marks cm-tr"></div>
+            <div class="corner-marks cm-bl"></div><div class="corner-marks cm-br"></div>
+            <div class="text-xs tracking-[0.25em] uppercase text-ink-muted mb-6 text-center">Archetype Signal</div>
+            <div class="relative w-48 h-48 md:w-56 md:h-56 mx-auto mb-6">
+              <svg viewBox="0 0 200 200" class="w-full h-full">
+                <circle cx="100" cy="100" r="86" fill="none" stroke-width="2" class="score-ring-bg"/>
+                <circle id="score-circle" cx="100" cy="100" r="86" fill="none" stroke-width="3"
+                        class="score-ring" stroke-dasharray="540" stroke-dashoffset="100"/>
+                <g stroke="rgba(142,105,53,0.3)" stroke-width="1">
+                  <line x1="100" y1="6" x2="100" y2="14"/><line x1="100" y1="186" x2="100" y2="194"/>
+                  <line x1="6" y1="100" x2="14" y2="100"/><line x1="186" y1="100" x2="194" y2="100"/>
+                </g>
+              </svg>
+              <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <div class="font-display text-6xl md:text-7xl text-ink leading-none">
+                  <span id="score-val">81</span><span class="text-gold text-4xl">%</span>
+                </div>
+                <div class="text-[10px] tracking-[0.3em] uppercase text-ink-muted mt-2">of you</div>
+              </div>
+            </div>
+            <div class="border-t border-ink/10 pt-5 space-y-3 text-sm">
+              <div class="flex justify-between items-center">
+                <span class="text-ink-muted tracking-wide">Primary archetype</span>
+                <span id="archetype-mini" class="font-display italic text-gold-deep text-right"></span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-ink-muted tracking-wide">Signals analyzed</span>
+                <span class="font-display text-ink">60</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-ink-muted tracking-wide">Confidence</span>
+                <span id="meta-confidence" class="font-display text-ink">High</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-ink-muted tracking-wide">Pattern consistency</span>
+                <span id="meta-pattern-consistency" class="font-display text-ink">High</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-ink-muted tracking-wide">Behavioral volatility</span>
+                <span id="meta-volatility" class="font-display text-ink">Moderate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  What actually drives your decisions is a mix of control, discipline, and a quiet desire to avoid regret — more than the desire to win.
+  <div class="max-w-5xl mx-auto px-6 md:px-12 no-print">
+    <div class="chapter-divider"><span class="font-display italic text-sm">II · The Pattern</span></div>
+  </div>
 
-  <br><br>
+  <!-- II. THE PATTERN -->
+  <section class="chapter relative px-6 md:px-12 py-24 md:py-32">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="section-number">II.</span>
+        <span class="ornament-lg"></span>
+        <span class="text-xs tracking-[0.3em] uppercase text-gold-deep font-medium">The Pattern</span>
+      </div>
+      <h2 class="display-tight text-4xl md:text-6xl mb-8 font-normal">
+        What actually drives<br>
+        <span id="name-ch2" class="serif-italic text-gold-deep">Nicholas</span>'s decisions.
+      </h2>
+      <p id="pattern-intro" class="text-lg text-ink-muted mb-16 max-w-2xl"></p>
 
-  That’s why you don’t panic like others… but also why you sometimes hesitate when it matters most.
+      <div class="grid md:grid-cols-12 gap-10 md:gap-14">
+        <div class="md:col-span-7 space-y-10">
+          <p id="pattern-p1" class="text-base md:text-lg text-ink-soft leading-[1.85] drop-cap"></p>
+          <p id="pattern-p2" class="text-base md:text-lg text-ink-soft leading-[1.85]"></p>
+          <p id="pattern-p3" class="text-base md:text-lg text-ink-soft leading-[1.85]"></p>
 
-  <br><br>
+          <div class="card-paper p-8 md:p-10 relative border-t-2 border-t-gold mt-12">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="text-[10px] tracking-[0.3em] uppercase text-gold-deep font-medium">The Hidden Pattern</span>
+              <span class="w-8 h-px bg-gold-deep/40"></span>
+            </div>
+            <p id="hidden-pattern-headline" class="font-display text-2xl md:text-3xl leading-[1.2] text-ink mb-6"></p>
+            <p id="hidden-pattern-body" class="text-base text-ink-soft leading-relaxed"></p>
+          </div>
 
-  The pattern is subtle.
+          <div class="bg-cream-deep/50 p-8 md:p-10 rounded-sm border-l-2 border-l-clay">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="w-2 h-2 bg-clay rounded-full"></span>
+              <span class="text-[10px] tracking-[0.3em] uppercase text-clay-deep font-medium">The Cost of This Pattern</span>
+            </div>
+            <p id="cost-headline" class="text-base md:text-lg text-ink leading-relaxed mb-6 font-display italic"></p>
+            <p id="cost-body" class="text-sm text-ink-soft leading-relaxed"></p>
+          </div>
+        </div>
 
-  But once you see it, you can’t unsee it.
+        <div class="md:col-span-5 space-y-6">
+          <div class="card-ink p-8 md:p-10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/20 to-transparent"></div>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D4AE77" stroke-width="1" class="mb-6 opacity-60">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.76-2-2-2H4c-1.25 0-2 .76-2 2v8c0 3 3 5 5 5zm12 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .76-2 2v8c0 3 3 5 5 5z"/>
+            </svg>
+            <p id="pull-quote" class="pull-quote text-xl md:text-2xl text-cream mb-6"></p>
+            <div class="flex items-center gap-3 text-xs text-cream/50 tracking-wider uppercase">
+              <span class="w-8 h-px bg-gold-light"></span>
+              Behavioral note
+            </div>
+          </div>
 
-</div>
+          <div class="card-paper p-6">
+            <div class="text-xs tracking-widest uppercase text-ink-muted mb-3">What gets rationalized as:</div>
+            <div id="rationalizations" class="space-y-3 text-sm"></div>
+          </div>
 
-<!-- STRENGTHS -->
-<div class="mb-10">
-  <h3 class="text-2xl mb-4">Where you’re naturally strong</h3>
-  <ul class="space-y-2 text-gray-700">
-    <li>• You stay calm when others become emotional</li>
-    <li>• You think long-term instead of chasing short-term noise</li>
-    <li>• You build consistency instead of relying on luck</li>
-    <li>• You trust structure over impulse</li>
-  </ul>
-</div>
+          <div class="card-paper p-6 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-gold-pale/50 flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8E6935" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            </div>
+            <div>
+              <div class="text-xs tracking-widest uppercase text-ink-muted mb-1">Decision bias</div>
+              <div id="decision-bias" class="font-display text-lg"></div>
+              <div id="decision-bias-sub" class="text-xs text-ink-muted mt-0.5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- BLIND SPOTS -->
-<div class="mb-10">
-  <h3 class="text-2xl mb-4">What quietly holds you back</h3>
-  <ul class="space-y-2 text-gray-700">
-    <li>• You wait for clarity when speed would reward you more</li>
-    <li>• You trust preparation over action — even when you're already ready</li>
-    <li>• You avoid mistakes… but sometimes at the cost of missing upside</li>
-    <li>• You don’t realize how often “being safe” is costing you growth</li>
-  </ul>
-</div>
+  <div class="max-w-5xl mx-auto px-6 md:px-12 no-print">
+    <div class="chapter-divider"><span class="font-display italic text-sm">III · Brutal Truth</span></div>
+  </div>
 
-<!-- STRATEGY -->
-<div class="mb-10">
-  <h3 class="text-2xl mb-4">What actually works for you</h3>
-  <p class="text-gray-700 leading-relaxed">
+  <!-- III. BRUTAL TRUTH -->
+  <section class="chapter relative px-6 md:px-12 py-20 md:py-28">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="section-number">III.</span>
+        <span class="ornament-lg"></span>
+        <span class="text-xs tracking-[0.3em] uppercase text-clay-deep font-medium">Brutal Truth</span>
+      </div>
+      <div class="brutal-card p-10 md:p-20 text-cream rounded-sm relative">
+        <div class="relative z-10 max-w-3xl">
+          <div class="text-[10px] tracking-[0.4em] uppercase text-clay mb-8 flex items-center gap-3">
+            <span class="w-10 h-px bg-clay"></span>
+            Said once, plainly
+          </div>
+          <p id="brutal-headline" class="font-display text-3xl md:text-5xl leading-[1.15] mb-10" style="letter-spacing: -0.015em"></p>
+          <p id="brutal-body" class="text-base md:text-lg text-cream/70 leading-relaxed max-w-2xl"></p>
+          <div class="mt-12 flex items-center gap-3 text-xs text-cream/40 tracking-widest uppercase">
+            <span class="w-8 h-px bg-clay/60"></span>
+            This sentence is the whole report.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    You don’t need more information.
+  <div class="max-w-5xl mx-auto px-6 md:px-12 no-print">
+    <div class="chapter-divider"><span class="font-display italic text-sm">IV · Real Behavior</span></div>
+  </div>
 
-    <br><br>
+  <!-- IV. REAL-LIFE BEHAVIOR -->
+  <section class="chapter relative px-6 md:px-12 py-24 md:py-32 bg-cream-deep/30">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="section-number">IV.</span>
+        <span class="ornament-lg"></span>
+        <span class="text-xs tracking-[0.3em] uppercase text-gold-deep font-medium">Recognizable Behavior</span>
+      </div>
+      <h2 id="scenarios-h2" class="display-tight text-4xl md:text-6xl mb-6 font-normal"></h2>
+      <p class="text-lg text-ink-muted mb-16 max-w-2xl">
+        If one of these feels uncomfortably specific, that's the signal, <span id="name-ch4" class="serif-italic text-gold-deep">Nicholas</span>.
+      </p>
+      <div id="scenarios-container" class="space-y-10"></div>
+    </div>
+  </section>
 
-    You need a structure that forces action.
+  <div class="max-w-5xl mx-auto px-6 md:px-12 no-print">
+    <div class="chapter-divider"><span class="font-display italic text-sm">V · Profile Dashboard</span></div>
+  </div>
 
-    <br><br>
+  <!-- V. PROFILE DASHBOARD -->
+  <section class="chapter relative px-6 md:px-12 py-24 md:py-32">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="section-number">V.</span>
+        <span class="ornament-lg"></span>
+        <span class="text-xs tracking-[0.3em] uppercase text-gold-deep font-medium">Profile Dashboard</span>
+      </div>
+      <h2 class="display-tight text-4xl md:text-6xl mb-6 font-normal">
+        The shape of<br>
+        <span class="serif-italic text-gold-deep">how you operate.</span>
+      </h2>
+      <p class="text-lg text-ink-muted mb-16 max-w-xl">
+        Six dimensions, measured. You will recognize the contour immediately.
+      </p>
 
-    The highest-performing investors with your profile follow one rule:
+      <div class="grid md:grid-cols-12 gap-6 md:gap-8 mb-8">
+        <!-- Radar -->
+        <div class="md:col-span-6 card-paper p-8 md:p-10 relative">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <div class="text-xs tracking-[0.25em] uppercase text-gold-deep mb-1">Behavioral Radar</div>
+              <div class="font-display text-xl">Six-axis signature</div>
+            </div>
+            <span class="chip">Fig. 01</span>
+          </div>
+          <div class="relative w-full aspect-square max-w-md mx-auto">
+            <svg viewBox="0 0 400 400" class="w-full h-full">
+              <g fill="none" stroke="rgba(26,31,46,0.08)" stroke-width="1" id="radar-grid"></g>
+              <g stroke="rgba(26,31,46,0.12)" stroke-width="1" id="radar-axes"></g>
+              <g font-family="Inter Tight, sans-serif" font-size="11" fill="#5A6275" text-anchor="middle" letter-spacing="1.5" id="radar-labels"></g>
+              <polygon id="radar-shape" class="radar-polygon"
+                fill="rgba(184,137,74,0.2)" stroke="#B8894A" stroke-width="2" stroke-linejoin="round"/>
+              <g id="radar-points" fill="#8E6935" class="radar-polygon"></g>
+              <circle cx="200" cy="200" r="2" fill="#8E6935"/>
+            </svg>
+          </div>
+          <div class="mt-6 pt-6 border-t border-ink/10 flex items-center justify-between text-xs text-ink-muted">
+            <span>Scored 0–100</span>
+            <span class="flex items-center gap-2">
+              <span class="inline-block w-3 h-3 bg-gold/25 border border-gold"></span>
+              Your signature
+            </span>
+          </div>
+          <div id="radar-reading" class="mt-5 text-sm text-ink-soft leading-relaxed italic"></div>
+        </div>
 
-    <br><br>
+        <!-- Bars -->
+        <div class="md:col-span-6 card-paper p-8 md:p-10">
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <div class="text-xs tracking-[0.25em] uppercase text-gold-deep mb-1">Dimensional Breakdown</div>
+              <div class="font-display text-xl">Where you are loud and quiet</div>
+            </div>
+            <span class="chip">Fig. 02</span>
+          </div>
+          <div id="bars-container" class="space-y-6"></div>
+        </div>
+      </div>
 
-    <strong>they remove decision friction.</strong>
+      <!-- Decision meters -->
+      <div class="card-paper p-8 md:p-12 mb-8">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-10">
+          <div>
+            <div class="text-xs tracking-[0.25em] uppercase text-gold-deep mb-1">Decision Style</div>
+            <div class="font-display text-xl">Where your instincts actually land</div>
+          </div>
+          <span class="chip">Fig. 03</span>
+        </div>
+        <div id="meters-container" class="grid md:grid-cols-2 gap-x-16 gap-y-10"></div>
+      </div>
 
-    <br><br>
+      <div class="grid md:grid-cols-3 gap-4 mb-8">
+        <div class="card-paper p-6 md:col-span-3">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <div class="text-xs tracking-[0.25em] uppercase text-gold-deep mb-1">Profile Fingerprint</div>
+              <div class="font-display text-xl">Three signals worth remembering</div>
+            </div>
+            <span class="chip">Fig. 03A</span>
+          </div>
+          <div id="fingerprint-tags" class="flex flex-wrap gap-3"></div>
+        </div>
+      </div>
 
-    When you simplify your decisions, your natural discipline becomes a massive advantage — instead of a hidden constraint.
+      <!-- Portfolio -->
+      <div class="card-paper p-8 md:p-12">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+          <div>
+            <div class="text-xs tracking-[0.25em] uppercase text-gold-deep mb-1">Portfolio Tendency</div>
+            <div id="portfolio-subtitle" class="font-display text-xl"></div>
+          </div>
+          <span class="chip">Fig. 04</span>
+        </div>
+        <div class="portfolio-wedge mb-8" id="portfolio-wedge"></div>
+        <div id="portfolio-cards" class="grid md:grid-cols-4 gap-5"></div>
+        <div id="portfolio-reading" class="mt-8 pt-6 border-t border-ink/10 text-sm text-ink-soft leading-relaxed italic"></div>
+        <div class="mt-4 text-xs text-ink-muted italic">
+          Directional guidance calibrated to your archetype — not personalized financial advice.
+        </div>
+      </div>
+    </div>
+  </section>
 
-  </p>
-</div>
+  <div class="max-w-5xl mx-auto px-6 md:px-12 no-print">
+    <div class="chapter-divider"><span class="font-display italic text-sm">VI · The Playbook</span></div>
+  </div>
 
-<!-- PORTFOLIO -->
-<div class="mb-10">
-  <h3 class="text-2xl mb-4">Suggested portfolio structure</h3>
-  <ul class="space-y-2 text-gray-700">
-    <li>• 60% Long-term core assets (index funds / ETFs)</li>
-    <li>• 20% High-quality conviction plays</li>
-    <li>• 10% Opportunistic bets</li>
-    <li>• 10% Cash for flexibility</li>
-  </ul>
-</div>
+  <!-- VI. PLAYBOOK -->
+  <section class="chapter relative px-6 md:px-12 py-24 md:py-32">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="section-number">VI.</span>
+        <span class="ornament-lg"></span>
+        <span class="text-xs tracking-[0.3em] uppercase text-gold-deep font-medium">The Playbook</span>
+      </div>
+      <h2 class="display-tight text-4xl md:text-6xl mb-6 font-normal">
+        Seven rules, written<br>
+        <span class="serif-italic text-gold-deep">only for you.</span>
+      </h2>
+      <p id="playbook-intro" class="text-lg text-ink-muted mb-16 max-w-xl"></p>
+      <div id="playbook-container" class="space-y-6"></div>
+    </div>
+  </section>
 
-<!-- FRAMEWORK -->
-<div class="mb-10">
-  <h3 class="text-2xl mb-4">Your decision framework</h3>
-  <p class="text-gray-700">
-    Before any investment, run this internal filter:
-  </p>
-  <ul class="mt-3 space-y-2 text-gray-700">
-    <li>• Do I understand this clearly?</li>
-    <li>• Would I hold this for 5+ years?</li>
-    <li>• Am I acting from logic — or emotion?</li>
-  </ul>
-</div>
+  <div class="max-w-5xl mx-auto px-6 md:px-12 no-print">
+    <div class="chapter-divider"><span class="font-display italic text-sm">VII · Two Futures</span></div>
+  </div>
 
-<!-- CLOSING -->
-<div class="mt-16 text-center">
-  <h3 class="text-xl mb-4">This is just the surface.</h3>
-  <p class="mb-6 text-gray-600">
-    Most people never realize what actually drives their financial decisions.
-    Now you do.
-  </p>
-  <a href="/" class="bg-black text-white px-6 py-3 rounded-full">Back to home</a>
-</div>
+  <!-- VII. TWO FUTURES -->
+  <section class="chapter relative px-6 md:px-12 py-24 md:py-32 bg-cream-deep/30">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex items-center gap-3 mb-10">
+        <span class="section-number">VII.</span>
+        <span class="ornament-lg"></span>
+        <span class="text-xs tracking-[0.3em] uppercase text-gold-deep font-medium">Two Futures</span>
+      </div>
+      <h2 class="display-tight text-4xl md:text-6xl mb-6 font-normal">
+        You are already<br>
+        <span class="serif-italic text-gold-deep">living one of them.</span>
+      </h2>
+      <p class="text-lg text-ink-muted mb-16 max-w-2xl">
+        Both are realistic. Both are based on the pattern above.
+        The difference isn't luck, market, or intelligence. The difference is whether
+        the pattern is allowed to continue running unchecked.
+      </p>
+      <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div class="path-dark p-8 md:p-10 rounded-sm relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-clay/20 to-transparent"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2 mb-6">
+              <span class="w-8 h-px bg-clay"></span>
+              <span class="text-[10px] tracking-[0.3em] uppercase text-clay font-medium">Path A · If nothing changes</span>
+            </div>
+            <h3 id="path-a-headline" class="font-display text-3xl md:text-4xl leading-tight mb-8 text-cream"></h3>
+            <div id="path-a-body" class="space-y-5 text-sm text-cream/75 leading-relaxed"></div>
+          </div>
+        </div>
+        <div class="path-light p-8 md:p-10 rounded-sm relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/20 to-transparent"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2 mb-6">
+              <span class="w-8 h-px bg-gold-deep"></span>
+              <span class="text-[10px] tracking-[0.3em] uppercase text-gold-deep font-medium">Path B · If the pattern breaks</span>
+            </div>
+            <h3 id="path-b-headline" class="font-display text-3xl md:text-4xl leading-tight mb-8 text-ink"></h3>
+            <div id="path-b-body" class="space-y-5 text-sm text-ink-soft leading-relaxed"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-12 text-center max-w-2xl mx-auto">
+        <p class="font-display italic text-xl md:text-2xl text-ink leading-relaxed">
+          The market will not decide which path is yours.
+          <span class="text-gold-deep">You already are.</span>
+        </p>
+      </div>
+    </div>
+  </section>
 
-</div>
+  <div class="max-w-5xl mx-auto px-6 md:px-12 no-print">
+    <div class="chapter-divider"><span class="font-display italic text-sm">VIII · Identity</span></div>
+  </div>
+
+  <!-- VIII. IDENTITY REFRAME -->
+  <section class="chapter relative px-6 md:px-12 py-24 md:py-32">
+    <div class="atmosphere" style="width:520px; height:520px; background:#D4AE77; top:-140px; left:50%; transform:translateX(-50%); opacity:0.2;"></div>
+    <div class="max-w-4xl mx-auto relative text-center">
+      <div class="flex items-center justify-center gap-3 mb-10">
+        <span class="ornament"></span>
+        <span class="text-xs tracking-[0.3em] uppercase text-gold-deep font-medium">Who You Actually Are</span>
+        <span class="ornament"></span>
+      </div>
+      <p class="font-display italic text-2xl md:text-3xl text-ink-muted mb-10 leading-relaxed">
+        Read this once. Then close the tab.
+      </p>
+      <div id="reframe-block" class="mb-16"></div>
+      <div id="reframe-closing" class="max-w-2xl mx-auto space-y-6 text-lg text-ink-soft leading-relaxed"></div>
+      <div class="mt-20">
+        <div class="chapter-divider mb-12">
+          <span class="font-display italic text-sm text-gold-deep">Prepared privately</span>
+        </div>
+        <div class="signature">— The Investor Archetype Study</div>
+        <div class="text-xs tracking-widest uppercase text-ink-muted mt-4">
+          Behavioral Assessment Group · 2026 Edition
+        </div>
+        <div class="flex items-center justify-center gap-3 mt-10 text-xs text-ink-muted">
+          <span class="ornament"></span>
+          <span class="tracking-widest uppercase">End of Dossier</span>
+          <span class="ornament"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="relative z-10 px-6 md:px-12 py-12 border-t border-ink/10 bg-cream-deep/20 no-print">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
+      <div class="flex items-center gap-3">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="13" stroke="#1A1F2E" stroke-width="1.2"/>
+          <path d="M9 18V10L14 16L19 10V18" stroke="#B8894A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <div class="font-display text-sm text-ink">Prepared by Investor Archetype</div>
+          <div class="text-xs text-ink-muted">Behavioral profile · 2026 Edition</div>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-6 text-xs text-ink-muted">
+        <a href="/" class="hover:text-ink transition flex items-center gap-1.5">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to home
+        </a>
+        <button onclick="window.print()" class="hover:text-ink transition flex items-center gap-1.5">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+          Print dossier
+        </button>
+      </div>
+    </div>
+    <div class="pt-6 border-t border-ink/10 text-xs text-ink-muted/80 italic max-w-3xl leading-relaxed">
+      This report describes behavioral tendencies observed across the assessment.
+      It is a psychological framework, not personalized financial, legal, or tax advice.
+      Its purpose is to surface patterns — the decision to act on them is yours alone.
+    </div>
+    <div class="mt-6 text-[10px] tracking-widest uppercase text-ink-muted/60">
+      © 2026 Investor Archetype · All Rights Reserved
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// ARCHETYPE DATA — Each archetype is a complete psychological profile.
+// Six dimensions scored 0-100: [vision, conviction, independence, discipline, patience, risk]
+// ============================================================
+const ARCHETYPES = {
+
+  "The Calculated Dreamer": {
+    colorAccent: "#B8894A",
+    intro: (n) => `This document is not a personality quiz. It is a behavioral reading — an attempt to describe the specific way ${n} thinks about money when no one is watching. What follows will not flatter. It is designed to be useful, which is a different thing.`,
+    patternIntro: "Rationality feels like your default. It isn't. Underneath the frameworks sits a small set of emotional rules you rarely articulate — and they shape more outcomes than any spreadsheet ever has.",
+    patternP1: "Money is not what keeps you up at night. What keeps you up is what a bad outcome would prove about your reasoning. That's the engine underneath almost every decision you make. It calls itself discipline. Its actual job is self-protection.",
+    patternP2: "When an opportunity appears, the first question is rarely \"is this good?\" — it's \"what will I look like if I'm wrong?\" That second question distorts everything downstream. Downside scenarios sharpen. Upside scenarios stay theoretical. The internal word for this is careful. The market has a different word for it.",
+    patternP3: "First conviction almost never gets acted on. There's a rehearsal. A re-read. One more spreadsheet. By the time the certainty bar is cleared, the asymmetry has been priced in by someone faster and less cautious. Blame the market if you want. The market has no idea you exist.",
+    hiddenHeadline: "You don't fear losing money.<br>You fear losing faith in your own judgment.",
+    hiddenBody: "Every time a position moves against you, the discomfort isn't the loss — it's the question. <em>Was my framework wrong? Am I wrong?</em> Selling early isn't about protecting capital; it's about ending the tension of not knowing. This is the exact mechanism by which good positions get exited early and bad ones get held too long: the ones sold early still <em>felt</em> right at entry, so closing them resolves the discomfort faster than holding through it.",
+    costHeadline: "Between 30% and 60% of your potential returns are being left on the table, and the explanation you give yourself is that you're too careful to lose.",
+    costBody: "The cost isn't the losses — your losses are small. The cost is the gains that were never allowed to mature. Over a twenty-year horizon, that gap isn't a rounding error. It is the difference between comfortable and free.",
+    pullQuote: "The gap between who you think you are as an investor and who you actually are — that gap is where every avoidable mistake lives. Closing it is not an intellectual problem. It is an emotional one.",
+    rationalizations: [
+      ["\"Doing more research\"", "Often: avoiding the moment of commitment."],
+      ["\"Waiting for confirmation\"", "Often: waiting for the crowd to de-risk it for you."],
+      ["\"Being disciplined\"", "Often: avoiding the risk of looking foolish."],
+      ["\"Staying rational\"", "Often: using logic to justify an emotional flinch."],
+    ],
+    decisionBias: "Paralysis by pre-commitment",
+    decisionBiasSub: "Research continues until certainty replaces courage.",
+    brutalHeadline: "The trades you regret<br><span class='serif-italic text-gold-light'>aren't the ones you got wrong.</span><br>They're the ones you got right, and under-sized.",
+    brutalBody: "Being wrong has an obvious cost. Being right in small size has a cost that hides in your head as discipline. It isn't. It's tax you keep paying to a version of yourself who needs certainty before acting.",
+    scenariosH2: "You've lived these<br><span class='serif-italic text-gold-deep'>five moments.</span>",
+    scenarios: [
+      { tag: "The One That Got Away", h: "You saw it early. You didn't buy.", body: "There was a company, or an asset, or a shift — at a price that would have meaningfully changed things. You mentioned it to someone. You saved a few articles. Then you waited for one more data point. Six months later, it had tripled, and the story you told yourself was that you'd seen it coming. The part that went unsaid was that seeing and owning are different verbs.", tell: "It still comes up in your head, unprompted. That's the tell." },
+      { tag: "The Small Position", h: "The thesis worked. The dollar gain didn't.", body: "You made the call. The position returned a real multiple. And still, looking at the actual dollar figure, something was off — because the sizing reflected doubt, not the clarity of the analysis. In conversation, you called it prudent. You know the more accurate word.", tell: "Being right in the wrong size is a specific, recurring form of wrong." },
+      { tag: "The Exit", h: "You sold the winner. The loser is still there.", body: "A position was up substantially, the thesis intact. The gain felt fragile, so you booked it — a respectable return that turned out to be a third of the eventual move. Meanwhile, a losing position remains in the book. The story is that you're waiting for it to recover. The more honest version is that you're waiting for it to hurt less to sell.", tell: "One of those moves was about the portfolio. The other was about you. You already know which was which." },
+      { tag: "The Spreadsheet", h: "You knew at hour one. You acted at hour forty.", body: "Weeks went into modeling a decision your instinct had already closed in the first hour. Each additional scenario confirmed what was already clear. The research wasn't finding the answer. It was building enough paperwork to grant permission for a conclusion that had been reached earlier.", tell: "Your instinct doesn't require that much documentation to be trustworthy." },
+      { tag: "The Conversation", h: "Someone pitched it. You dismissed it. It worked.", body: "An investment was described to you that didn't fit the framework. The response was polite. No work was done. Two years later, the person who made the call did well — and there was a small, private feeling afterward that never got named out loud.", tell: "The framework is a tool. It isn't the world." },
+    ],
+    radar: [88, 74, 70, 92, 82, 58], // vision, conviction, independence, discipline, patience, risk
+    radarReading: "A classic high-discipline / high-vision signature with one sharp constraint: risk tolerance trails every other dimension by a wide margin. In practice, this shape produces thoughtful ideas that get sized conservatively — the intelligence earns a return, but never the full return the intelligence deserved.",
+    bars: [
+      ["Long-term vision", 88, "Exceptional · Thinking in decades where others think in weeks."],
+      ["Discipline", 92, "Very high · Occasionally used against the self."],
+      ["Patience", 82, "Strong · With a specific blind spot around winners."],
+      ["Conviction", 74, "Higher than self-estimated. Acts smaller than it should."],
+      ["Independence", 70, "Independent views formed — validation sought before acting."],
+      ["Risk tolerance", 58, "Moderate · The edge is selectivity, not aggression."],
+    ],
+    meters: [
+      ["Logic", "Emotion", 28, "You live on the logic side — which is exactly why the emotion, when it slips in, isn't noticed. It looks like rigor."],
+      ["Speed", "Caution", 75, "Best decisions arrive at 75–85% certainty. The wait is usually for 95%. By then, the opportunity has closed."],
+      ["Conviction", "Flexibility", 38, "Positions are held with belief — but updated on noise more than admitted. The news cycle should not be an input."],
+      ["Independence", "Consensus", 33, "Independent views, but acted on after one specific person's quiet agreement. The crowd doesn't move you. One person does."],
+    ],
+    portfolioSubtitle: "Risk distributed. Conviction under-sized.",
+    portfolioReading: "The shape is backwards relative to the conviction. 22% in conviction plays sounds deliberate until it's compared against the quality of the underlying reads — which would justify closer to 35%. The 8% cash position is the tell: it's carrying anxiety, not optionality.",
+    portfolio: [
+      ["Core Assets", 55, "#1A1F2E", "Quiet, compounding holdings that don't require attention to work."],
+      ["Conviction Plays", 22, "#8E6935", "The source of returns. Also where positions are consistently under-weighted."],
+      ["Opportunistic", 15, "#D4AE77", "Dislocations. Most investors of this type keep this at 0%. Don't."],
+      ["Cash Reserve", 8, "#6B8370", "A weapon, not a hiding place. It tends to get used as a hiding place."],
+    ],
+    playbookIntro: "Generic advice doesn't work because the problem isn't generic. These are calibrated to the specific pattern above.",
+    playbook: [
+      ["When the urge to run one more model appears, stop.", "The fifth spreadsheet isn't producing new information. It's producing the feeling of having done homework, which is not the same thing. If three models say yes, certainty doesn't improve at five. Only delay does."],
+      ["Size to the conviction, not to the fear.", "If a thesis is worth owning, it is worth owning enough to change a life when it plays out. A 1% position in a 10x idea is a rounding error. That is not discipline — it is interest being paid on your own doubt."],
+      ["Write the invalidation before writing the thesis.", "Before capital moves, name the three specific conditions that would prove the idea wrong. Put them in writing. Then stop watching price. Watch for those three things. Everything else is noise designed to manipulate an early exit."],
+      ["Review positions on a calendar. Never on a price move.", "Quarterly check-ins, scheduled. Between those dates, price doesn't exist. Checking more often doesn't indicate a thesis. It indicates an anxiety."],
+      ["Keep a one-page decision journal.", "For each position above 2% of the portfolio: date, thesis in one paragraph, invalidation conditions, and the price or catalyst being waited on. Not a grading exercise — a museum of your own patterns. That is what eventually breaks them."],
+      ["Let winners run longer than is comfortable.", "The impulse to book gains is not discipline. It is the thing robbing the portfolio. When a position doubles, the job is not to sell. The job is to re-read the thesis and ask whether the world has actually changed. If it hasn't, do nothing. Doing nothing is the hardest trade. Make it anyway."],
+      ["Cut losers on invalidation, not on pain.", "A position isn't wrong because it went down. It's wrong because invalidation conditions were hit. Until they are, red is not a signal — it is a test of whether the journal meant anything. Most losses taken didn't need to be taken. Most losses refused, did."],
+    ],
+    pathAHeadline: "A comfortable life<br><span class='serif-italic text-clay'>that is quietly smaller than it should be.</span>",
+    pathABody: [
+      "Going broke isn't the risk. The discipline protects against that. A respectable net worth gets built. Retirement arrives on schedule. The story you tell yourself — reasonably — is that it went well.",
+      "But the ideas spotted first, and hesitated on, become other people's stories. You watch them, privately, and feel the specific ache of having been right without being paid for it.",
+      "The gap between potential and outcome grows quietly for twenty years. You call it prudence. In the last decade of the career, a suspicion arrives — correctly — that one or two lives were left on the table.",
+      { bold: "The worst part is not the money. It is the small, private knowledge that you could see it coming." },
+    ],
+    pathBHeadline: "Your strengths, finally<br><span class='serif-italic text-gold-deep'>paid in full.</span>",
+    pathBBody: [
+      "Everything that works gets kept — the research, the patience, the long horizon, the filter. The rigor stays intact. One thing gets dropped: the requirement to be certain before acting.",
+      "Conviction positions become 4–6% instead of 1%. Winners are held through the phase where you used to flinch. Negotiation shifts from yourself to the thesis.",
+      "Over a decade, this single shift compounds into a different life. Not because more risk was taken — the risk profile is unchanged — but because, for the first time, you were sized correctly when you were right.",
+      { bold: "The hardest part was never the investing. It was learning to trust what you already knew." },
+    ],
+    reframeLead: (n) => `${n}, you are not someone`,
+    reframeAccent: "who lacks conviction.",
+    reframeTwist: "You are someone who has never been",
+    reframeTwistAccent: "loud enough",
+    reframeTail: "about your own.",
+    reframeClosing: [
+      "Not a trader. Not a speculator. Not someone who needs to become more aggressive.",
+      { italic: "A long-horizon allocator who has spent a lifetime underestimating your own conviction." },
+      "The edge isn't out there — not in a sharper framework, not in a newer thesis. The edge is letting the version of you that already knows do its work, without asking permission first.",
+      { bold: "That's the whole game. The rest is paperwork." },
+    ],
+  },
+
+  "The Visionary Architect": {
+    colorAccent: "#8E6935",
+    intro: (n) => `This is not a personality test. It is a behavioral map of how ${n} moves through time differently than most — and the specific cost that comes with it. What follows is designed to be clarifying, not reassuring.`,
+    patternIntro: "Everyone says they think long-term. Almost no one does. What separates you isn't the claim — it's what you're willing to endure to be right about the future.",
+    patternP1: "Most investors watch the weather. You watch the climate. While others react to the news cycle, you've already positioned for a world three to seven years out — one that doesn't yet exist on anyone else's dashboard. That's the edge. It's also the source of every real difficulty this craft has ever caused you.",
+    patternP2: "Being early is structurally indistinguishable from being wrong. The market rewards neither, for a while. Friends ask questions. The quarterly numbers don't cooperate. You hold anyway — because holding is who you are. The holding is lonelier than the outside version of you admits.",
+    patternP3: "The loneliness has started shaping the decisions. Ideas no one else sees pull you in, partly because no one else sees them. The thesis has to feel contrarian to feel correct. That's a subtle trap: not every good idea is lonely, and not every lonely idea is good.",
+    hiddenHeadline: "You confuse being early<br>with being smart.",
+    hiddenBody: "The story you tell yourself is that you see what others can't. The more accurate version is that you see things before the world has organized around them — and sometimes it organizes, and sometimes the world simply moves on. A correct read on the future is only valuable if the world eventually agrees. Your most seductive mistakes are the theses that are directionally right, but ten years premature, or pointed at a future that arrives but reshapes itself on the way.",
+    costHeadline: "You have been paying, quietly, for the privilege of being right too early — and calling the bill \"conviction.\"",
+    costBody: "Time is the asset that compounds for you. It is also the asset you spend most carelessly. Every year a thesis needs to \"still\" play out is a year of opportunity cost you don't price into your analysis. The math of patience is real. So is the math of being patient about the wrong thing.",
+    pullQuote: "The longer the horizon, the more ruthlessly the wrong thesis compounds against you. Long-term thinking magnifies quality. It also magnifies error.",
+    rationalizations: [
+      ["\"The market just doesn't understand this yet\"", "Sometimes true. Sometimes protective."],
+      ["\"Time horizon arbitrage\"", "Sometimes an edge. Sometimes a way to delay being proven wrong."],
+      ["\"I'm willing to look stupid\"", "Admirable until it becomes identity. Then it becomes a trap."],
+      ["\"The world is catching up\"", "Check: or has the world already moved past where you planted the flag?"],
+    ],
+    decisionBias: "Thesis attachment",
+    decisionBiasSub: "The idea becomes a piece of your identity. Killing it feels like killing a version of yourself.",
+    brutalHeadline: "Being ten years early<br><span class='serif-italic text-gold-light'>is functionally the same as being wrong.</span><br>The statement doesn't care about the distinction.",
+    brutalBody: "Your worst trades weren't bad ideas. They were correct ideas on a timeline the world didn't honor. The account balance is indifferent to your foresight. It only reads the date.",
+    scenariosH2: "You've lived these<br><span class='serif-italic text-gold-deep'>five moments.</span>",
+    scenarios: [
+      { tag: "The Early Call", h: "Right vision. Wrong decade.", body: "A shift was identified long before anyone was paying attention. The analysis held up. The conviction was real. The position was taken. What wasn't priced in was how long \"long-term\" actually is. The thesis did eventually play out — for the investors who showed up seven years after your entry, with fresh capital and no scar tissue.", tell: "You were right. You were also exhausted by the time it mattered." },
+      { tag: "The Quiet Holding", h: "Held through a zero. Still holding.", body: "A position went down 60%, then 80%, then flatlined. By your own framework, the thesis was intact. You held. You're still holding. Somewhere along the way, the question stopped being about returns and started being about identity. Selling would mean admitting the thesis was wrong — not at a price, but in its shape.", tell: "It's no longer an investment. It's a monument." },
+      { tag: "The Contrarian Badge", h: "Wore the loneliness too long.", body: "Being early-and-alone started to feel like evidence of being right. Ideas that too many thoughtful people agreed with became suspicious by default. That instinct has made you money. It has also made you skip some of the cleanest trades of the decade — consensus-but-correct ideas you dismissed on arrival.", tell: "Consensus is sometimes just truth arriving on schedule." },
+      { tag: "The Grand Framework", h: "Built the map. Skipped the street.", body: "Hours went into a beautiful model of where markets, technology, and society were heading. The macro picture was coherent. What got less attention was the street-level work — the specific companies, prices, entries that would translate the framework into actual returns. The vision was clear. The portfolio was blurry.", tell: "Frameworks don't compound. Positions do." },
+      { tag: "The Defending", h: "Stopped running the position. Started defending it.", body: "At some point, a position began requiring defense — in conversations, in newsletters, to yourself at odd hours. The act of defending took more effort than the act of managing. When that balance tips, the holding has stopped being an investment. It's become a belief.", tell: "Investments get monitored. Beliefs get defended." },
+    ],
+    radar: [95, 78, 85, 62, 90, 70],
+    radarReading: "A signature built around two axes — vision and patience — that operate at the very top of the distribution. The weaker dimension is discipline, which reveals the central tension: the map is extraordinary, the day-to-day execution of the map is inconsistent. Most visionaries aren't limited by their vision. They're limited by the gap between the vision and the portfolio expressing it.",
+    bars: [
+      ["Long-term vision", 95, "Exceptional · Upper 3% across the cohort."],
+      ["Patience", 90, "Very high · With a tendency toward over-holding."],
+      ["Independence", 85, "Strong · Sometimes structural, sometimes stubborn."],
+      ["Conviction", 78, "High · Anchored to theses more than to evidence."],
+      ["Risk tolerance", 70, "Above average · Comfortable with ambiguity, less so with drawdowns."],
+      ["Discipline", 62, "Moderate · Process is clearer in theory than in execution."],
+    ],
+    meters: [
+      ["Vision", "Execution", 22, "The map gets built with exceptional care. The street-level work of actually running positions gets less attention than it deserves."],
+      ["Patience", "Urgency", 82, "Holding through pain is your strength. Knowing when patience becomes paralysis is the unfinished work."],
+      ["Independence", "Consensus", 20, "Contrarian by default. The risk is treating consensus as automatic evidence of being wrong — it isn't."],
+      ["Conviction", "Revision", 30, "Theses rarely get re-examined on their own terms. Revision often waits for a loss big enough to force it."],
+    ],
+    portfolioSubtitle: "Concentrated. Patient. Occasionally indefensible.",
+    portfolioReading: "The allocation is honest about the temperament — 60% long-horizon, 25% high-conviction, minimal short-term exposure. The risk isn't the concentration; it's that concentration on a stale thesis looks identical to concentration on a live one until the difference has cost you five years.",
+    portfolio: [
+      ["Long-Horizon Core", 60, "#1A1F2E", "Positions held with a 5–10 year lens. Your most comfortable territory."],
+      ["Thesis Concentrations", 25, "#8E6935", "Where the deepest conviction lives. Also where the largest scars live."],
+      ["Reserve Capital", 10, "#D4AE77", "Rarely deployed. Often rationalized as \"waiting for clarity.\""],
+      ["Liquid / Short-term", 5, "#6B8370", "Minimal. Your framework treats short-horizon exposure as noise, sometimes unfairly."],
+    ],
+    playbookIntro: "The long-horizon edge is real. These rules are about keeping it from becoming the only edge you have.",
+    playbook: [
+      ["Put an expiration date on every thesis.", "Not a price target — a time target. If the thesis hasn't meaningfully played out by year five or seven, it isn't patience keeping you in. It's sunk cost. Write the expiration before the entry."],
+      ["Treat \"the market will eventually see this\" as a hypothesis, not a law.", "The market sometimes sees things. It also sometimes moves past them. The question that matters is not whether you're right — it's whether the world is structured to reward being right in your lifetime."],
+      ["Test consensus before dismissing it.", "Consensus ideas with strong fundamentals are frequently correct. The instinct to avoid crowded trades is an edge in some regimes and a tax in others. Know which one you're paying."],
+      ["Reserve a portion of the book for shorter horizons.", "Not because it matches your temperament, but because it forces a second mode of thinking. A portfolio that only knows one timescale is unusually fragile to any decade that doesn't reward it."],
+      ["Separate the framework from the positions.", "A framework can be right while specific positions are wrong. Don't let an elegant model make you loyal to a dying expression of it. Kill the position. Keep the map."],
+      ["When defending a position takes real effort, review it.", "If you catch yourself rehearsing the argument for why it's still right — to friends, to the mirror — that's data. Good positions usually don't need rehearsal. They either work or they fail cleanly."],
+      ["Schedule an annual identity audit.", "Once a year, ask: am I holding this because the thesis is still sound, or because selling would mean admitting I was wrong for three years? Answer honestly. The answer you resist is usually the real one."],
+    ],
+    pathAHeadline: "A brilliant map<br><span class='serif-italic text-clay'>and a mediocre portfolio.</span>",
+    pathABody: [
+      "The thinking keeps getting sharper. The frameworks keep getting richer. The writing gets better. Reputations among thoughtful people grow.",
+      "Meanwhile, the returns — compared to the quality of the analysis — remain strangely muted. A few big wins, most of them from theses held longer than comfortable, surrounded by a graveyard of brilliant ideas that didn't compound because the position was wrong, too small, or held through a thesis change that was never formally admitted.",
+      "In the last chapter, the suspicion is that the vision was always correct, but the vehicle for expressing it was never quite right. A life spent being directionally right, in unhelpful proportions.",
+      { bold: "The map was the masterpiece. It was never meant to be an investment strategy." },
+    ],
+    pathBHeadline: "The vision, finally<br><span class='serif-italic text-gold-deep'>converted into returns.</span>",
+    pathBBody: [
+      "The long-horizon instinct gets kept. The patience gets kept. What gets added is the discipline of translation — the work of moving from \"I see where the world is going\" to \"here is the specific, sized, time-bound position that captures it.\"",
+      "Theses now carry expiration dates. Positions get rotated when the vehicle stops expressing the framework, even if the framework is intact. The portfolio starts to reflect the quality of the thinking instead of shadowing it.",
+      "The compounding is extraordinary — not because more risk was taken, but because the edge was finally being converted into dollars at the same rate it was being produced as insight.",
+      { bold: "Vision without execution is philosophy. Vision with execution is wealth." },
+    ],
+    reframeLead: (n) => `${n}, you are not someone`,
+    reframeAccent: "with a bad portfolio.",
+    reframeTwist: "You are someone whose",
+    reframeTwistAccent: "vision",
+    reframeTail: "has outrun your execution.",
+    reframeClosing: [
+      "Not a speculator. Not a trader. Not someone who needs to shorten the horizon.",
+      { italic: "A long-cycle thinker whose ideas are worth more than the positions currently expressing them." },
+      "The edge isn't a new framework. The edge is closing the gap between the quality of what you see and the quality of what you own. The vision is already world-class. The portfolio just needs to catch up.",
+      { bold: "You're not here to be right. You're here to be paid for being right." },
+    ],
+  },
+
+  "The Strategic Guardian": {
+    colorAccent: "#3F5A7D",
+    intro: (n) => `This document describes how ${n} actually thinks about risk — not the version written in a prospectus, but the version visible in every decision made under pressure. It is meant to be accurate, not comfortable.`,
+    patternIntro: "Protection is instinct, not strategy. Before anything else can register, one question runs in the background: what's the worst version of this, and can I live with it?",
+    patternP1: "Capital preservation isn't a philosophy for you. It's a reflex. You've slept well at night for a long time. You've watched other investors take bigger risks, make bigger returns, and occasionally get destroyed — and your quiet conclusion has been consistent: better to arrive late than not to arrive at all.",
+    patternP2: "The instinct has built you real wealth. It has also quietly reshaped you. The vigilance that keeps catastrophic losses away also keeps catastrophic gains away. You are wired to survive, in a game where survival is table stakes and the real edge lies in knowing — with precision — when to stop being careful.",
+    patternP3: "All risks get treated as equivalent. The risk of losing money registers loudly. The risk of making too little — slowly, year after year, while inflation compounds against you — is nearly invisible to your framework. Both are real. One gets priced. One doesn't.",
+    hiddenHeadline: "You protect against the loud risks.<br>The quiet ones are the ones that compound.",
+    hiddenBody: "A market crash is vivid. A thirty-year stretch of 3% real returns is not. And yet the second one is doing more damage to most portfolios than the first one ever will. Your risk framework is calibrated almost entirely to the visible, the sudden, the news-worthy. What it underweights is the slow erosion of purchasing power, the opportunity cost of over-diversification, the asymmetric missed upside from positions sized to your fears rather than your convictions.",
+    costHeadline: "Your discipline is building a floor. The cost is that it is also building a ceiling.",
+    costBody: "The wealth you have protected is real. The wealth you have not built, because every decision got run through a worst-case filter, is not visible on any statement. It lives in the space between what you have and what someone with your information and half your caution would have. That gap is uncomfortable to measure. It is also the most important number in your financial life.",
+    pullQuote: "Risk management is a tool. Used correctly, it protects the portfolio. Used reflexively, it protects the investor from the portfolio's own potential.",
+    rationalizations: [
+      ["\"Preserving capital\"", "Sometimes genuine. Sometimes the word for not committing."],
+      ["\"Waiting for better risk-reward\"", "Translation: waiting for an opportunity without risk. Those don't exist."],
+      ["\"Staying diversified\"", "Past a point, diversification is just permission to never concentrate."],
+      ["\"Being responsible\"", "A value. Also, sometimes, a costume worn to avoid pressure."],
+    ],
+    decisionBias: "Loss aversion amplified",
+    decisionBiasSub: "A potential loss feels roughly three times as vivid as an equivalent gain.",
+    brutalHeadline: "You haven't been protecting your wealth.<br><span class='serif-italic text-gold-light'>You've been protecting yourself</span><br>from having to choose.",
+    brutalBody: "Diversification disperses outcomes. It also disperses accountability. The framework is sophisticated enough to look like strategy, but the mechanism is simpler: it keeps you from ever being the one who decided. You can't be very wrong. You also can't be very right.",
+    scenariosH2: "You've lived these<br><span class='serif-italic text-gold-deep'>five moments.</span>",
+    scenarios: [
+      { tag: "The Over-Hedge", h: "Protected the upside away.", body: "A position was strong. The analysis was clean. The thesis sat well inside your circle of competence. It was hedged anyway — trimmed, spread, insured around — because the possibility of being wrong felt more real than the probability of being right. The hedges cost money. The opportunity cost of the hedges cost more.", tell: "Protection you didn't need is still a cost you paid." },
+      { tag: "The Cash Drag", h: "Held cash through the best year.", body: "A meaningful slice of the portfolio sat in cash, \"waiting for the right opportunity.\" The market delivered a strong year. The cash earned almost nothing. The waiting never resolved — there's always a reason to keep waiting, and your framework is good at finding it.", tell: "Cash is an option. An unused option is an expense." },
+      { tag: "The Missed Concentration", h: "Knew the best idea. Bought the average one instead.", body: "Among the positions evaluated, one stood out — better risk-reward, cleaner thesis, more conviction than the others. You bought it. You also bought nine others, to stay diversified. The best idea worked. It was 4% of the book. Nothing actually changed.", tell: "Concentration you avoid is conviction you spread thin." },
+      { tag: "The Comparison", h: "Someone you respect moved measurably ahead.", body: "A person you take seriously made a bold, measured move. It worked. They're now meaningfully ahead of you — not because they took more risk in aggregate, but because they sized their best ideas honestly. You noted this privately. You continued to frame your own caution as the more mature approach. It might be.", tell: "Being reflexively prudent with your own capital is not the same as being prudent with other people's." },
+      { tag: "The Review", h: "Ten years. A solid floor. A shorter ceiling.", body: "Looking back over a decade, the portfolio has done what it was designed to do: no catastrophic losses, steady growth, no drawdowns of consequence. The floor held. Measured against the set of opportunities that were visible and sized away from, though, the ceiling was lower than it needed to be. The target was hit. The target was set conservatively.", tell: "The goal of a portfolio isn't to hit the goal. It's to set one worth hitting." },
+    ],
+    radar: [78, 72, 62, 94, 85, 45],
+    radarReading: "Discipline and patience dominate the profile. Risk tolerance — by a wide margin — is the lowest dimension. That combination is exceptional for capital preservation and structurally limiting for compounding. Nothing in this signature needs to become weaker; one dimension needs to be deliberately raised in specific, rare moments.",
+    bars: [
+      ["Discipline", 94, "Exceptional · Probably above what the portfolio actually needs."],
+      ["Patience", 85, "Very high · Expressed as willingness to wait, occasionally as inability to move."],
+      ["Long-term vision", 78, "Strong · Oriented around preservation rather than compounding."],
+      ["Conviction", 72, "Solid · Not always converted into meaningful position sizing."],
+      ["Independence", 62, "Moderate · Comfortable with consensus; uncomfortable being early."],
+      ["Risk tolerance", 45, "Below average · Calibrated to avoid regret, not to capture upside."],
+    ],
+    meters: [
+      ["Logic", "Emotion", 18, "Analytical by default. What registers as pure logic is often fear in a suit."],
+      ["Offense", "Defense", 85, "Defensive instincts run deep. Offensive play requires conscious effort — and still happens too rarely."],
+      ["Concentration", "Diversification", 80, "Diversification past the point of usefulness. Conviction diluted into portfolio safety."],
+      ["Act", "Observe", 72, "Watching runs longer than acting. By the time the signal is loud enough, it has often passed."],
+    ],
+    portfolioSubtitle: "Robust. Steady. Occasionally too quiet.",
+    portfolioReading: "60% defensive, 12% cash, 8% in anything that could meaningfully move the portfolio. The allocation is doing exactly what it was designed to do — protect. It's also the reason the compounding is quietly lagging investors with comparable judgment and less cautious posture. The missing dimension is a deliberate, bounded offense.",
+    portfolio: [
+      ["Defensive Core", 60, "#1A1F2E", "Bonds, quality equities, stable income. The fortress."],
+      ["Moderate Growth", 20, "#8E6935", "Diversified exposure. Broad. Deliberately unexciting."],
+      ["Selective Plays", 8, "#D4AE77", "Where real conviction lives. Chronically under-sized."],
+      ["Cash Reserve", 12, "#6B8370", "Above what the portfolio actually needs. Comfort dressed as discipline."],
+    ],
+    playbookIntro: "The defensive instinct doesn't need to be weakened. It needs to be deployed more precisely — and then stepped away from when conditions warrant.",
+    playbook: [
+      ["Define the risk you are NOT protecting against.", "Every risk framework protects against something and ignores something else. Name what yours is ignoring — probably opportunity cost, inflation, or concentration — and price it explicitly. Unpriced risk is still risk."],
+      ["Budget for offense.", "Reserve a portion of the portfolio — 15 to 25% — that operates under different rules. Higher conviction, smaller margin of safety, real sizing. Without this, the defensive framework governs everything, and the portfolio becomes a ceiling."],
+      ["Size your best idea like you mean it.", "If three ideas are being evaluated and one is clearly superior, it should not receive equal weight. Diversification among best ideas is not prudence — it is a refusal to choose."],
+      ["Separate \"can I afford to lose this?\" from \"am I willing to be uncomfortable?\"", "The first is a real constraint. The second is a preference. Confusing them is the mechanism by which caution calcifies into inertia."],
+      ["Put a time limit on \"waiting for the right opportunity.\"", "If the cash pile hasn't moved in twelve months, the waiting is not strategic. Set a forced deployment threshold — even a partial one — to prevent cash drag from becoming a permanent posture."],
+      ["Re-examine diversification annually.", "Past a certain point, each additional position adds almost no risk reduction and removes meaningful return. Count your positions honestly. If the answer is \"more than thirty,\" you aren't diversified — you are indexing with extra steps."],
+      ["Recognize when fear is wearing the mask of rigor.", "When the analysis keeps producing \"wait\" as the answer, ask: is the rigor actually examining the opportunity, or is it searching for a reason not to commit? The second is more common than most careful investors admit."],
+    ],
+    pathAHeadline: "Wealth preserved<br><span class='serif-italic text-clay'>at the cost of wealth created.</span>",
+    pathABody: [
+      "No catastrophes. No sleepless nights. A portfolio that grows, reliably, at a rate slightly above inflation and slightly below the market. Retirement arrives. The mortgage is gone. The numbers look respectable.",
+      "Meanwhile, a cohort that took measured, thoughtful risk — not reckless, not aggressive, just less defensive — has compounded to two or three times your outcome. Their portfolios had worse years. Their decade is meaningfully ahead.",
+      "The story you tell is about prudence. The story the numbers tell is about a ceiling set too low, held in place too long, honored too carefully.",
+      { bold: "The floor held. The roof was the problem." },
+    ],
+    pathBHeadline: "Protection that also<br><span class='serif-italic text-gold-deep'>participates.</span>",
+    pathBBody: [
+      "The defensive instincts stay intact. The risk framework stays intact. What changes is the honest accounting of what the framework is protecting against and what it is ignoring.",
+      "A selectivity dial gets added. Best ideas are sized as best ideas, not as equal weights in a committee. A portion of the book is explicitly reserved for offense — conviction-sized, time-bound, without the diluting hedges.",
+      "Ten years later, the floor still holds — nothing catastrophic has happened — but the ceiling is gone. Compounding has done its work. The defensive instincts haven't been abandoned. They've been deployed where they actually earn their keep.",
+      { bold: "The same temperament. A meaningfully different outcome." },
+    ],
+    reframeLead: (n) => `${n}, you are not`,
+    reframeAccent: "a conservative investor.",
+    reframeTwist: "You are",
+    reframeTwistAccent: "a protector",
+    reframeTail: "who has forgotten what you're protecting for.",
+    reframeClosing: [
+      "Not timid. Not unsophisticated. Not someone who needs to take more risk.",
+      { italic: "A careful steward whose caution is currently working harder than it needs to." },
+      "The edge isn't more aggression. The edge is remembering that caution is a tool with a purpose, and that using it indiscriminately isn't discipline — it's habit. The protection was never the goal. The life the protection was meant to enable was the goal.",
+      { bold: "The floor exists to stand on. Not to live under." },
+    ],
+  },
+
+  "The Patient Alchemist": {
+    colorAccent: "#8E6935",
+    intro: (n) => `This is not a performance review. It is a close reading of how ${n} converts time into wealth — and of the specific friction point that currently separates a thoughtful financial life from a remarkable one.`,
+    patternIntro: "Time is your material. Most investors treat capital as something to be traded, rotated, optimized. You treat it as something to be shaped, slowly, into a life. That orientation is rare and valuable. It also carries one expensive flaw.",
+    patternP1: "Other investors want returns. You want meaning — and you've built a financial life around the assumption that the two can coexist, that money invested with intention compounds differently than money invested purely for gain. This is partly true. It is also, sometimes, an expensive story.",
+    patternP2: "Your positions carry more weight than other investors' positions do. A holding isn't a holding; it's a reflection of who you are, what you value, the kind of world you want to be part of building. That gives the portfolio coherence. It also means selling feels less like adjusting a position and more like editing a version of yourself. Exits come slowly — not because the thesis still holds, but because letting go breaks the narrative.",
+    patternP3: "Your patience is legendary, mostly to yourself. It's also, occasionally, a way to avoid the harder work of actually looking. Holding a position for ten years because it's genuinely compounding is wealth creation. Holding a position for ten years because you stopped examining it is something else. The difference is where most of the under-performance lives.",
+    hiddenHeadline: "You don't hold positions because they work.<br>You hold them because holding is who you are.",
+    hiddenBody: "There is a version of patience that is active — a continual, quiet re-evaluation that concludes, again and again, that the position deserves to stay. There is another version that looks the same from the outside but is actually a kind of refusal: to examine, to confront, to adjust. Both look like long-term investing. Only one of them compounds intentionally. The difference between them is where most of your under-performance lives.",
+    costHeadline: "Treating patience as identity rather than as tool has cost you more than any bad decision ever has.",
+    costBody: "A bad decision is a finite loss. Bad patience is an infinite one — a thesis that should have been updated five years ago, a position that stopped working quietly, a sector you rotated out of emotionally but not operationally. These don't show up as losses. They show up as the returns you should have earned and didn't. That number is invisible, and it is larger than you think.",
+    pullQuote: "The most dangerous position in a portfolio is the one you've stopped questioning because you've been in it long enough that questioning it feels disloyal.",
+    rationalizations: [
+      ["\"Long-term thinking\"", "Sometimes real. Sometimes just the aesthetic of long-term thinking."],
+      ["\"Trusting the process\"", "Process works when it is still the right process. Trust without review is superstition."],
+      ["\"Values-aligned investing\"", "Values are a filter. They are not a thesis. The position still has to work."],
+      ["\"Not reacting to noise\"", "Or not reacting at all. Both look similar. Only one is deliberate."],
+    ],
+    decisionBias: "Identity attachment",
+    decisionBiasSub: "Positions become extensions of self. Exiting feels like self-betrayal, not capital allocation.",
+    brutalHeadline: "Patience is your edge.<br><span class='serif-italic text-gold-light'>It is also your most elegant excuse</span><br>to stop looking.",
+    brutalBody: "The positions quietly failing in your portfolio aren't failing because you held them. They're failing because you stopped examining them. Patience without examination isn't patience anymore. It's inertia in better language.",
+    scenariosH2: "You've lived these<br><span class='serif-italic text-gold-deep'>five moments.</span>",
+    scenarios: [
+      { tag: "The Sacred Holding", h: "Held for the story. Not for the thesis.", body: "A position has been in the portfolio for many years. The original thesis, examined honestly, no longer applies — the world changed, the company changed, the sector repositioned. But the holding feels sacred. Selling would mean admitting something. So it stays. Not as an investment. As a monument to who you were when you bought it.", tell: "It's not compounding anymore. Only the story is." },
+      { tag: "The Avoided Review", h: "Stopped opening the statement.", body: "Reviewing the portfolio quietly became something to avoid. Not because the overall picture is bad — it isn't — but because a close look would mean confronting a few positions that have drifted from their original purpose. The avoidance gets rationalized as not obsessing about short-term moves. The actual mechanism is different.", tell: "Real long-term investors look at their portfolios more often than you do. They just look differently." },
+      { tag: "The Values Trade", h: "Invested in the story more than the asset.", body: "A position got taken that aligned beautifully with the values. The pitch was inspiring. The people were thoughtful. The thesis, on inspection, was weaker than the alignment suggested. The position has under-performed. It is still held — partly because selling would feel like a betrayal of what it represented, partly because the loss would be concrete while the meaning is narrative.", tell: "Alignment with values is a gift. It isn't an investment thesis." },
+      { tag: "The Comparison", h: "A less patient investor lapped you.", body: "Someone with less patience, less aesthetic, less of a coherent philosophy delivered materially better returns over a decade. They rotated. They updated. They treated positions as instruments rather than identity. Their portfolio was uglier. Their outcome was better. Privately, their approach got dismissed as short-term thinking. The dismissal cost more than an honest look would have.", tell: "Speed tethered to honesty beats patience tethered to inertia. Every time." },
+      { tag: "The Slow Realization", h: "The portfolio reflects who you were, not who you are.", body: "Somewhere around year seven or eight, a quiet observation arrives: the portfolio is a museum of who you were when the positions were built. The values have evolved. The analytical frameworks have sharpened. The world has moved on. The portfolio hasn't. Updating feels like an enormous emotional task — which is itself the most important data point about its current composition.", tell: "A portfolio that reflects your past self more than your present one is a portfolio waiting to be edited." },
+    ],
+    radar: [90, 82, 75, 80, 92, 55],
+    radarReading: "Patience is the signature trait — in the top 5% of profiles — paired with a long-term vision that's nearly as high. Conviction and discipline are both strong. The weaker point is risk tolerance, and the subtler issue is that discipline, while high, is oriented around holding rather than examining. The shape produces coherence. It also produces drift when unchecked.",
+    bars: [
+      ["Patience", 92, "Exceptional · Among the top 5% of profiles."],
+      ["Long-term vision", 90, "Very high · Thinking in decades is genuine, not performative."],
+      ["Conviction", 82, "Strong · With a tendency to mistake persistence for validity."],
+      ["Discipline", 80, "High · Process is real; examination of the process is less so."],
+      ["Independence", 75, "Above average · Comfortable following your own calendar."],
+      ["Risk tolerance", 55, "Moderate · Structured around meaning, not around maximizing return."],
+    ],
+    meters: [
+      ["Examination", "Trust", 78, "Trust runs high. Examination runs lower than it should. Both are needed; one is currently carrying the other."],
+      ["Meaning", "Return", 30, "Meaning is weighted heavily — sometimes more heavily than the underlying thesis justifies."],
+      ["Hold", "Rotate", 88, "Holding is the default. Rotating is treated as failure rather than as maintenance."],
+      ["Identity", "Instrument", 25, "Positions are experienced as identity. Rarely remembered to be instruments."],
+    ],
+    portfolioSubtitle: "Coherent. Values-aligned. Rarely edited.",
+    portfolioReading: "65% of the portfolio was built by a version of you that existed years ago, and has not been meaningfully re-examined since. That isn't necessarily wrong — the reasoning may still hold. The issue is that the question itself has rarely been asked.",
+    portfolio: [
+      ["Long-Held Core", 65, "#1A1F2E", "Positions owned for many years. Some still compounding. Some museums."],
+      ["Values-Aligned Growth", 20, "#8E6935", "Holdings selected for alignment as much as return. The tension between the two rarely gets audited."],
+      ["Real Assets / Tangible", 10, "#D4AE77", "Land, property, or assets that can be touched. Comfortable territory."],
+      ["Cash / Liquidity", 5, "#6B8370", "Low, as trust in the long term is genuine. Occasionally too low for optionality."],
+    ],
+    playbookIntro: "The patience is not the problem. The absence of examination underneath it is. These rules preserve the edge and install the audit.",
+    playbook: [
+      ["Schedule a \"sacred holding\" review annually.", "Once a year, identify any position held for more than five years. Examine it as if it were being considered for the first time, today, with current information. Would it be bought now? If not, the \"holding it\" and the \"refusing to sell it\" are the same decision."],
+      ["Separate values from theses, explicitly.", "A position can be values-aligned and bad. A position can be values-neutral and excellent. Write a one-line thesis for each holding that does not reference values. If the thesis is too thin without them, the values are propping up the investment."],
+      ["Treat patience as a cost, not a gift.", "Every year of holding is a year of opportunity cost. That doesn't mean holding is wrong — it means the holding needs to be justifying its cost against alternatives. Patience without that accounting is generosity to the position at your own expense."],
+      ["Audit the portfolio every quarter — briefly.", "Not to trade. To look. Avoidance of review is a signal; the avoidance itself is data. Investors with real long-term edges look at their portfolios often. They just don't act often."],
+      ["Distinguish \"holding through volatility\" from \"holding through thesis decay.\"", "The first is your strength. The second is the pattern being avoided. Volatility is noise. Thesis decay is signal. The muscle for telling them apart has to be built deliberately."],
+      ["Allow the portfolio to evolve with you.", "Ten-year-old positions may be compounding. They may also be artifacts of a self you've already outgrown. Give permission for the portfolio to reflect the current investor, not the younger one. That isn't disloyalty. That is growth."],
+      ["Accept that selling a position is not a failure of conviction.", "Conviction is held in the thesis, not in the position. When the thesis changes, the position should change. Treating every exit as an admission of being wrong is what turns patience into paralysis."],
+    ],
+    pathAHeadline: "A beautiful portfolio<br><span class='serif-italic text-clay'>that no longer fits the investor.</span>",
+    pathABody: [
+      "The portfolio continues to reflect the values, the temperament, the thoughtful orientation that has always defined you. It grows — slowly, gracefully, in line with inflation plus a modest premium.",
+      "Inside it, unexamined, a few positions are quietly drifting. Theses that stopped applying years ago. Alignments that are no longer particularly aligned. The returns don't catastrophically suffer; they just quietly under-perform what an honest audit would have produced.",
+      "At the end, the wealth is real. It is also less than it should be — not because the philosophy was wrong, but because the philosophy was never paired with the maintenance it required.",
+      { bold: "The patience was beautiful. It just wasn't enough on its own." },
+    ],
+    pathBHeadline: "Patience, finally<br><span class='serif-italic text-gold-deep'>matched with examination.</span>",
+    pathBBody: [
+      "The philosophy stays. The orientation toward meaning stays. The willingness to hold through anything that isn't a change in the fundamentals — that stays too. Nothing about who you are at a deep level needs to be abandoned.",
+      "What gets added is the audit. Annual reviews of every long-held position, conducted with the same rigor as a fresh decision. Values and theses separated. The portfolio permitted to evolve as the investor evolves.",
+      "The compounding that results is not an acceleration of risk. It is the removal of drag. Over a decade, the patient-plus-examined portfolio meaningfully outperforms the patient-only portfolio, and it does so without changing the essential character of the investor.",
+      { bold: "Patience compounds. Examined patience compounds faster." },
+    ],
+    reframeLead: (n) => `${n}, you are not someone`,
+    reframeAccent: "who lacks sophistication.",
+    reframeTwist: "You are someone whose",
+    reframeTwistAccent: "loyalty",
+    reframeTail: "is currently paying the cost of your honesty.",
+    reframeClosing: [
+      "Not passive. Not undisciplined. Not someone who needs to trade more.",
+      { italic: "A thoughtful long-term allocator whose patience has become, in specific positions, a refusal to look." },
+      "The edge isn't abandoning the philosophy. The edge is pairing it with clear-eyed examination — the willingness to test every sacred holding against the standard of a fresh decision. Keep the patience. Add the audit.",
+      { bold: "Time is your material. Examination is your tool. You've been using one without the other." },
+    ],
+  },
+
+  "The Intuitive Hunter": {
+    colorAccent: "#C4745D",
+    intro: (n) => `This is a behavioral reading, not a performance report. It describes how ${n} actually processes opportunity — not how the process gets narrated afterward, but how it happens in the room, in the moment, under real conditions.`,
+    patternIntro: "Patterns speak to you. The shape of a situation is often visible before the details have arranged themselves. That instinct is real. It is also, occasionally, a lie told in your own voice.",
+    patternP1: "Instinct is your primary instrument. You've earned the right to trust it — it has been right, often, where no one else was. The specific feeling of seeing what the room can't, and the specific relief of being vindicated later, is familiar territory. This isn't luck. It's a real cognitive gift, and almost no one in the room carries it in the same form.",
+    patternP2: "The instrument has a design flaw: it doesn't tell you when it's wrong. Roughly 90% of your reads are sharp. The other 10% are pattern-matching to a shape that isn't actually there — and the internal certainty is nearly identical in both cases. The same system that makes you excellent offers no signal when it has failed.",
+    patternP3: "Acting fast is part of the edge. It's also where the edge gets given back. A read that would benefit from ten minutes of slower examination often doesn't get them, because slowing down registers in the body as hesitation, not verification. Speed becomes evidence of conviction. Sometimes it is. Often, it's just speed.",
+    hiddenHeadline: "Your instinct has been right often enough<br>that you've stopped testing it.",
+    hiddenBody: "Every correct call reinforces the instinct. Every incorrect call gets absorbed into a story about \"timing\" or \"execution\" or \"the market being irrational.\" The instrument never gets recalibrated, because the feedback loop is rigged in its favor. You remember the brilliant reads with unusual clarity. The misreads get metabolized before they can teach anything. This is not a failure of memory. It is a feature of how instinctive systems defend themselves.",
+    costHeadline: "The ten percent of reads that are wrong get sized identically to the ninety percent that are right — and they cost more than the wins pay.",
+    costBody: "Position sizing is where the damage lives. When every read feels equally sharp, every position gets sized equally large. That means a pattern-matching error — infrequent, hard to detect from the inside — lands with the same weight as a brilliant read. The math of this is unforgiving: one or two wrong-but-large positions can undo a decade of correct-and-normal ones. The instinct isn't the problem. The uniform confidence attached to it is.",
+    pullQuote: "Intuition is an oracle with no volume control. It speaks at the same pitch whether it knows the answer or only thinks it does.",
+    rationalizations: [
+      ["\"I've seen this pattern before\"", "Sometimes the same pattern. Sometimes a pattern that only rhymes."],
+      ["\"It just feels right\"", "Sometimes signal. Sometimes the aftershock of a similar-but-different setup."],
+      ["\"Overthinking kills returns\"", "True at the extreme. At the margin, underthinking kills more."],
+      ["\"The market moves fast\"", "It does. It also rewards speed only when speed is earned."],
+    ],
+    decisionBias: "Pattern over-confidence",
+    decisionBiasSub: "Brilliant reads and misfires produce identical internal certainty.",
+    brutalHeadline: "Your best trade<br><span class='serif-italic text-gold-light'>and your worst trade</span><br>felt exactly the same at entry.",
+    brutalBody: "That is the whole problem. The instinct that makes you excellent offers no signal when it's wrong. It speaks with the same voice, the same confidence, whether it's reading the room or pattern-matching to a ghost. Until that signal has a mirror, the misfires will keep being sized like the wins.",
+    scenariosH2: "You've lived these<br><span class='serif-italic text-gold-deep'>five moments.</span>",
+    scenarios: [
+      { tag: "The Fast Entry", h: "Saw it. Bought it. Didn't write it down.", body: "The position got taken in minutes, maybe less. The read was clean. It worked. The story afterward described the specific signal that triggered the entry — except the signal was partly reconstructed after the fact, because nothing was documented in real time. The win is real. The repeatability of the process that produced it is not.", tell: "A win you can't reconstruct is a win you can't learn from." },
+      { tag: "The Doubled Down", h: "Trusted the instinct twice. It was wrong twice.", body: "A position was entered on instinct. It moved against the read. Rather than revisit, the instinct was trusted again — the market is confused, the thesis is right — and the position was added to. It kept moving against you. The total loss didn't come from the first error. It came from the idea that the first read couldn't have been wrong.", tell: "An instinct that cannot be wrong isn't an instinct. It's a belief." },
+      { tag: "The Ignored Doubt", h: "A small voice said wait. You didn't.", body: "Before the entry, a quieter signal flagged one specific concern — \"check this one thing.\" The louder system said stop second-guessing. The position got taken. The thing unchecked turned out to be the thing that mattered. The uncomfortable lesson: your secondary signals are sometimes better calibrated than your primary ones. They're just quieter.", tell: "The voice that says slow down isn't weakness. It's sometimes the more accurate instrument." },
+      { tag: "The Review", h: "Tried to explain the win. Couldn't.", body: "A position worked. Someone thoughtful asked what the thesis was. The answer came out haltingly — obvious at the time, surprisingly hard to articulate cleanly after the fact. What felt obvious was a cluster of fast signals that had never been fully examined, even in hindsight.", tell: "If you can't explain the read, you can't defend against its failure mode." },
+      { tag: "The Streak", h: "Got hot. Stopped distinguishing skill from luck.", body: "A run of successful calls produced a different kind of confidence — one that didn't separate the calls that were genuinely sharp from the calls that happened to work. Position sizes crept up. Filters loosened. Then a normal market regime returned, and so did reality.", tell: "A streak is data. A streak is also a trap. Telling them apart from inside one is rare." },
+    ],
+    radar: [72, 85, 88, 58, 62, 78],
+    radarReading: "Independence, conviction, and risk tolerance form a tight, high cluster — the unmistakable shape of a pattern-reader willing to act. Discipline is the lowest dimension, which is the diagnostic finding: the instrument is powerful, the maintenance protocol for it is missing. Performance is consequently asymmetric — high on average, occasionally volatile on the downside.",
+    bars: [
+      ["Independence", 88, "Exceptional · Operates without needing the room's agreement."],
+      ["Conviction", 85, "Very high · Sometimes appropriately calibrated, sometimes not."],
+      ["Risk tolerance", 78, "Strong · Comfortable moving before the picture is fully clear."],
+      ["Long-term vision", 72, "Above average · More tactical than strategic by default."],
+      ["Patience", 62, "Moderate · Fast entries, sometimes too-fast exits."],
+      ["Discipline", 58, "Lower · Process exists in concept more than in practice."],
+    ],
+    meters: [
+      ["Speed", "Caution", 18, "Speed is the default, almost always. Caution has to be deliberately introduced."],
+      ["Instinct", "Process", 22, "Instinct is the primary instrument. Process is treated as something that dulls it rather than sharpens it."],
+      ["Concentration", "Diversification", 30, "Concentration is natural. The risk: concentrating behind a misread with full confidence."],
+      ["Action", "Verification", 20, "Action first, verification second — if at all. Verification, treated as friction, often never happens."],
+    ],
+    portfolioSubtitle: "Concentrated. Fast. Occasionally unrecognizable to its owner.",
+    portfolioReading: "75% of the book is expressing instinct — high-conviction plays and opportunistic swings. That ratio is characteristic, not wrong. The problem isn't that the portfolio looks this way. The problem is that the investor cannot always reconstruct why it looks this way in real time.",
+    portfolio: [
+      ["High-Conviction Plays", 45, "#1A1F2E", "The positions that feel obvious. The source of both the best and worst outcomes."],
+      ["Opportunistic Swings", 30, "#8E6935", "Entries made quickly, often before most investors have noticed. Sized larger than prudence suggests."],
+      ["Stable Baseline", 15, "#D4AE77", "A modest foundation. Maintained reluctantly."],
+      ["Liquid Reserve", 10, "#6B8370", "Ammunition for the next read. Held with impatience."],
+    ],
+    playbookIntro: "Instinct is the edge. These rules don't dull it — they install a feedback loop so the instinct can actually be calibrated over time.",
+    playbook: [
+      ["Write the read before taking the position.", "One paragraph, before capital moves. What is the specific pattern being matched? What has to be true for this to work? Writing it down, in real time, is the only way to ever distinguish sharp reads from pattern-matching misfires — after the fact, the mind rewrites history too smoothly to learn anything."],
+      ["Set a mandatory pause on positions above a threshold.", "For positions above a chosen size — maybe 3 to 5% of the book — install a forced delay. Not to kill the instinct, but to test whether it still looks correct after twelve hours. Sharp reads survive a pause. Misfires often don't."],
+      ["Track the reads that didn't work, in writing.", "The successes self-reinforce. The misfires disappear into narrative. Keep a ledger — short, honest — of entries that didn't work out. The ledger is the only tool that can recalibrate an instinct that is otherwise invisible to itself."],
+      ["Size to read quality, not to read confidence.", "Some reads are sharp and the setup is clean. Some are sharp but the setup has a known flaw. The internal confidence feels similar. The expected value is not. Size distinguishes. Confidence should not be the only input to sizing."],
+      ["Honor the small doubt.", "When a quieter voice flags one specific concern, it is frequently the more calibrated signal. The loud instinct has the benefit of wanting to act; the quiet doubt has the benefit of not wanting anything. Listen to the one with less skin in the game."],
+      ["When on a streak, tighten the filter.", "A run of wins is the exact moment to raise standards, not lower them. Position sizes should go down, not up, during a streak. The returns from the streak were real. The confidence they produced is, at least partly, counterfeit."],
+      ["Build a second-opinion protocol — even if the second opinion is just you, tomorrow.", "Before entering a conviction-sized position, require one external perspective. It can be a colleague, a written analysis, or simply the version of yourself who will look at this after a night's sleep. The instinct doesn't need approval. It needs a mirror."],
+    ],
+    pathAHeadline: "A career of brilliant reads<br><span class='serif-italic text-clay'>undone by a few you couldn't tell apart.</span>",
+    pathABody: [
+      "The reads keep coming. Most of them keep being good. A reputation builds — quietly, then not so quietly — for seeing things early. The wins are real and they compound.",
+      "Then, somewhere in the middle of it, a few large positions get taken with the same internal certainty as all the others — and turn out to be misreads. Not catastrophic individually. But sized as if they were sharp, not as if they were uncertain. The cumulative damage undoes more than a decade of brilliant calls.",
+      "At the end, the story is about a few specific trades that \"weren't supposed to go wrong.\" They weren't identifiably wrong from the inside. That was the entire problem.",
+      { bold: "The instinct was real. The calibration was never built." },
+    ],
+    pathBHeadline: "The instinct, finally<br><span class='serif-italic text-gold-deep'>examined in daylight.</span>",
+    pathBBody: [
+      "Nothing about the instinct gets abandoned. The speed, the pattern recognition, the willingness to move before the room — all of it stays. What gets added is a scaffolding around it: written reads, tracked misfires, mandatory pauses on large sizes.",
+      "The effect isn't a slower investor. It is an instinctive investor with a recalibration loop. Over time, the pattern recognition gets sharper, not duller, because feedback is actually being incorporated rather than erased. The wins stay frequent. The large misfires stop happening — or at least stop being large.",
+      "Over a decade, the compounding is transformative. Not because the instinct got stronger, but because the instrument finally had a service schedule.",
+      { bold: "Raw intuition is a gift. Calibrated intuition is a weapon." },
+    ],
+    reframeLead: (n) => `${n}, you are not`,
+    reframeAccent: "impulsive.",
+    reframeTwist: "You are",
+    reframeTwistAccent: "instinctive",
+    reframeTail: "— in a system that rewards calibrated instinct and punishes the uncalibrated kind.",
+    reframeClosing: [
+      "Not reckless. Not undisciplined. Not someone who needs to slow down and think more.",
+      { italic: "A pattern-reader whose primary instrument has never been given a maintenance protocol." },
+      "The edge isn't dulling the instinct. The edge is giving it the feedback loop it has never had — written reads, tracked misfires, sizing to read quality rather than read volume. Keep the speed. Add the mirror.",
+      { bold: "Raw instinct is the gift. Calibrated instinct is the career." },
+    ],
+  },
+
+  "The Balanced Optimizer": {
+    colorAccent: "#6B8370",
+    intro: (n) => `This is a behavioral reading, not a set of congratulations. It describes how ${n} actually makes decisions — the specific equilibrium that gets struck between analysis and action, and the particular cost of that equilibrium when it shifts out of balance.`,
+    patternIntro: "Equilibrium is instinct for you. While most investors lean toward over-analysis or toward impulse, you naturally find the middle — enough research to be confident, enough decisiveness to act. The orientation is rare and valuable. It is also, in its own way, a trap.",
+    patternP1: "What you do particularly well is avoid the obvious errors. The impulsive mistakes of the fast investor, the paralysis of the over-analyst, the concentration of the true-believer — your temperament filters all of them out. Decisions that look dramatically wrong in hindsight are rare. Losses stay modest. Wins are real. The portfolio works.",
+    patternP2: "The cost of that temperament is subtle. Avoiding the obvious errors also means rarely capturing the obvious wins. Balanced decision-making sits, by construction, in the middle of the outcome distribution. No big losses. Quietly, no big wins. The extraordinary ten-year returns almost all belong to investors willing to be more extreme than your comfort allows — in conviction, in concentration, in tolerance for discomfort.",
+    patternP3: "Because the process is genuinely sound, it rarely gets stress-tested. The portfolio performs. The decisions look right. The temperament feels vindicated. What never gets examined is whether the balance — the specific ratio of analysis to action, of conviction to diversification — is actually optimal for your goals, or just optimal for your comfort.",
+    hiddenHeadline: "Balance is not the destination.<br>It is a default that has never been questioned.",
+    hiddenBody: "There is a subtle confusion in your framework between \"balanced\" and \"correct.\" They are not the same thing. The right amount of analysis depends on the decision; the right level of concentration depends on the conviction; the right ratio of offense to defense depends on life circumstances that change over time. Your equilibrium was set years ago and has been held there by habit, not by recalibration. A balance that never moves isn't balance — it is a fixed setting wearing the language of balance.",
+    costHeadline: "Your optimization function has been quietly solving for steadiness — and you have mistaken that for solving for returns.",
+    costBody: "The portfolio is well-constructed. The process is thoughtful. The outcomes are good. They are also, almost certainly, below what the same intelligence applied more asymmetrically would produce. The cost isn't a visible loss; it is the shape of a decade of returns that are solid, smooth, and one full standard deviation below what a more deliberately concentrated version of you would have achieved.",
+    pullQuote: "The most dangerous kind of good decision is the one that quietly prevents a great one.",
+    rationalizations: [
+      ["\"Sticking to the process\"", "Valuable. Also, sometimes, a way of never questioning the process."],
+      ["\"Staying diversified\"", "Up to a point. Past it, diversification is an insurance policy against having to choose."],
+      ["\"Risk-adjusted returns\"", "A real framework. Also occasionally a ceiling dressed as a floor."],
+      ["\"Not swinging for the fences\"", "Rational. Also the thing that keeps the fences unreachable."],
+    ],
+    decisionBias: "Optimization toward comfort",
+    decisionBiasSub: "Every decision gets adjusted slightly toward the version that minimizes regret in either direction.",
+    brutalHeadline: "A decade of correct decisions.<br><span class='serif-italic text-gold-light'>Not a single daring one.</span>",
+    brutalBody: "Every position is defensible. The process is real. None of this is being disputed. What's being named is a different pattern: in ten years of correct moves, the move that would have made the decade has never been taken. The edge your cohort lacks — the willingness to be deeply, specifically, uncomfortably right — has never been yours either.",
+    scenariosH2: "You've lived these<br><span class='serif-italic text-gold-deep'>five moments.</span>",
+    scenarios: [
+      { tag: "The Right-Sized Position", h: "Your best idea. Sized like your fifth-best.", body: "Among the opportunities evaluated, one stood out clearly by every framework you applied. It got sized according to the portfolio's rules rather than its relative quality. It worked. The dollar gain was pleasant. A less balanced investor would have sized it at three times the weight, and the same call would have been transformative. The portfolio has a decade of examples of this same pattern.", tell: "Being right in the right-sized way isn't the same as being right in the way that matters." },
+      { tag: "The Defensible Entry", h: "Chose the trade you could explain.", body: "Two opportunities were evaluated. One was clearly asymmetric — higher upside, but with a story that would be harder to defend if it failed. The other was conventional — less upside, but cleaner to narrate in any outcome. The second was chosen. It worked adequately. The first, tracked out of curiosity, did substantially better.", tell: "Defensibility is not a thesis. It's a preference." },
+      { tag: "The Quarterly Smoothness", h: "Optimized for never having a bad quarter.", body: "The portfolio has produced a remarkably consistent track record — no great quarters, no terrible ones. You treated this as success. In a separate conversation, an investor with meaningfully better ten-year returns described a portfolio that had two quarters down 20% in that same decade. Their willingness to accept drawdowns was the exact mechanism by which they outperformed.", tell: "Smoothness is a cost. You've been paying it and calling it insurance." },
+      { tag: "The Considered Opportunity", h: "Watched the right move from the sidelines.", body: "An opportunity was seen. Analyzed. Judged real. Then set aside, because taking it would have required an uncomfortable concentration — violating the portfolio's equilibrium. The opportunity played out exactly as predicted. The position was never taken. The analysis was flawless. The execution was missing.", tell: "An accurate forecast without a position is an intellectual exercise. Not an investment." },
+      { tag: "The Comparison", h: "A less balanced investor did better.", body: "Someone less balanced — less diversified, more concentrated, more willing to sit in discomfort — produced materially better returns over a decade. They didn't have a better process. They had, at specific moments, the willingness to be more extreme than you've allowed yourself to be.", tell: "The edge was never hidden. You saw it. You chose balance anyway." },
+    ],
+    radar: [80, 75, 68, 85, 82, 65],
+    radarReading: "The most evenly distributed signature in the framework. No dimension below 65, none above 85 — a profile that is genuinely well-rounded rather than merely average. The shape is the finding: balance here is a signal of skill, not of caution. The only critique the data makes is that the signature has no peak. Peaks are where life-changing returns come from.",
+    bars: [
+      ["Discipline", 85, "High · Process is genuinely robust."],
+      ["Patience", 82, "Strong · Stable across market conditions."],
+      ["Long-term vision", 80, "Strong · Well-calibrated time horizon."],
+      ["Conviction", 75, "Above average · Present, but rarely given room to fully express itself."],
+      ["Independence", 68, "Moderate · Comfortable with mainstream frameworks."],
+      ["Risk tolerance", 65, "Moderate · Calibrated to avoid extreme outcomes — including extreme positive ones."],
+    ],
+    meters: [
+      ["Conviction", "Balance", 70, "Balance is the reflexive answer. Conviction, when present, usually gets diluted to preserve the balance."],
+      ["Concentration", "Diversification", 72, "Diversified by default. Concentration treated as a risk to the portfolio rather than as an opportunity."],
+      ["Upside", "Downside", 60, "Downside protection is primary. Upside capture is secondary, not by analysis, but by temperament."],
+      ["Action", "Analysis", 55, "Action follows analysis reliably. Analysis reliably concludes with a balanced answer."],
+    ],
+    portfolioSubtitle: "Well-constructed. Evenly distributed. Reliably middle-of-the-road.",
+    portfolioReading: "A 55/20/15/10 split is the textbook answer to \"what should a thoughtful portfolio look like?\" It is also the answer that produces textbook returns. The 15% in selective concentrations is where the outperformance would come from — and it is sized exactly at the point where it can't meaningfully matter.",
+    portfolio: [
+      ["Diversified Core", 55, "#1A1F2E", "Broad-market exposure. Thoughtfully assembled. Intentionally unexciting."],
+      ["Sector Tilts", 20, "#8E6935", "Modest leans toward areas of conviction. Sized conservatively."],
+      ["Selective Concentrations", 15, "#D4AE77", "Where real conviction would live — if it were sized to match."],
+      ["Cash / Liquidity", 10, "#6B8370", "Standard allocation. Rarely deployed aggressively."],
+    ],
+    playbookIntro: "The process doesn't need to be replaced. It needs to be questioned at the margins — and given permission to be asymmetric in the specific moments that warrant it.",
+    playbook: [
+      ["Audit the portfolio for \"defensibility over upside\" trades.", "Identify positions that were chosen because they were easier to explain rather than because they had the best risk-reward. Many exist. The pattern will be visible. Some should be reallocated."],
+      ["Define the conditions under which concentration is allowed.", "If a position passes three or four specific criteria — exceptional conviction, asymmetric payoff, margin of safety — let it be sized asymmetrically. Not every position. Not often. But the rule that says \"no position above X%\" is currently preventing returns that the underlying judgment has earned."],
+      ["Measure risk-adjusted returns against a relevant benchmark.", "Not against a low-risk benchmark, which the portfolio obviously outperforms. Against investors with similar intelligence who take more measured risk. The comparison is uncomfortable. It is also the honest one."],
+      ["Accept a wider drawdown tolerance.", "Smoothness has been valued above all else. Relaxing that — accepting that a good decade includes two or three painful quarters — unlocks a return distribution that the current framework structurally excludes."],
+      ["Treat balance as a tool, not as an identity.", "Balance is the right answer in many situations. It is not the right answer in all of them. An over-applied balance is a ceiling, and the ceiling has been lowering the outcome of every decision for a decade."],
+      ["Size to conviction, explicitly.", "When a position has 90% conviction, size it like a 90% conviction position. When it has 60%, size it like that. The current framework sizes nearly everything at the same middle weight, which gives high-conviction ideas no room to produce high-conviction outcomes."],
+      ["Annually ask: what would a less balanced version of me have done differently?", "Not to become that version. To see what balance has cost. The answer sharpens the process by introducing a counterfactual that the current framework never generates on its own."],
+    ],
+    pathAHeadline: "Steady returns<br><span class='serif-italic text-clay'>and a ceiling you never built through.</span>",
+    pathABody: [
+      "The portfolio continues to perform. Steadily. Reliably. The process stays intact. Nothing catastrophic happens. The dollar figures grow.",
+      "Meanwhile, investors with comparable intelligence and more deliberate asymmetry compound to meaningfully different outcomes. Not all of them — some of them fail publicly. But a substantial portion of them end up two or three times ahead, and the difference is almost entirely in how they sized their best ideas.",
+      "The story at the end is about prudence, consistency, and avoided disasters. It is a reasonable story. It is also, quietly, a story about a ceiling that was held in place by temperament rather than by necessity.",
+      { bold: "Every avoided disaster had a cost. The cost was the life-changing wins avoided along with them." },
+    ],
+    pathBHeadline: "Balance as a tool<br><span class='serif-italic text-gold-deep'>rather than as a limit.</span>",
+    pathBBody: [
+      "The process stays. The discipline stays. The willingness to question every decision — kept. What changes is the addition of a second mode: specific, rare moments where balance is deliberately set aside in favor of conviction.",
+      "Most positions still get sized normally. Most decisions still get made through the balanced framework. But two or three times a year, a clear, high-conviction, asymmetric opportunity gets sized to match the conviction, without apology. The portfolio stays recognizable. The tail of outcomes extends dramatically.",
+      "Over a decade, the middle of the portfolio still performs the way it always has. The difference is in the tails — the few positions sized to their conviction, rather than to the rules, produce the kind of returns the balanced framework alone could never generate.",
+      { bold: "The foundation holds. The ceiling becomes optional." },
+    ],
+    pathBHeadline2: "",
+    reframeLead: (n) => `${n}, you are not`,
+    reframeAccent: "a cautious investor.",
+    reframeTwist: "You are a",
+    reframeTwistAccent: "thoughtful one",
+    reframeTail: "who has confused thoughtfulness with moderation.",
+    reframeClosing: [
+      "Not lacking conviction. Not under-analytical. Not someone who needs to take more risk.",
+      { italic: "A genuinely skilled allocator whose skill has been consistently under-deployed in the moments when it mattered most." },
+      "The edge isn't abandoning balance. The edge is recognizing that a tool used indiscriminately stops being a tool and becomes a ceiling. Most of the time, balance is correct. A few times a year, it isn't. Those few times are where the difference lives.",
+      { bold: "The skill was always there. The permission to use it at full scale is what's been missing." },
+    ],
+  },
+
+};
+
+
+const PROFILE_META = {
+  "The Calculated Dreamer": {
+    signalLine: "Your problem is not understanding. It's delaying the moment you trust what you already understand.",
+    strength: "Calm under pressure",
+    blindSpot: "Under-sizing conviction",
+    edge: "Structured long-term compounding",
+    patternConsistency: "Very High",
+    volatility: "Low",
+    fingerprints: ["High discipline, low urgency", "Strong thesis, cautious sizing", "Most expensive mistakes are missed upside"]
+  },
+  "The Visionary Architect": {
+    signalLine: "You rarely miss the direction. You lose time by demanding that the world arrive on your schedule.",
+    strength: "Seeing change early",
+    blindSpot: "Staying loyal too long",
+    edge: "Long-cycle asymmetric insight",
+    patternConsistency: "High",
+    volatility: "Moderate",
+    fingerprints: ["Vision leads execution", "Contrarian by instinct", "Time horizon is both edge and trap"]
+  },
+  "The Strategic Guardian": {
+    signalLine: "You are excellent at protecting capital. The hidden cost is how often protection keeps opportunity out as well.",
+    strength: "Defensive discipline",
+    blindSpot: "Overpricing visible risk",
+    edge: "Capital preservation with clarity",
+    patternConsistency: "Very High",
+    volatility: "Low",
+    fingerprints: ["Protection-first wiring", "Conviction diluted by diversification", "Opportunity cost is undercounted"]
+  },
+  "The Patient Alchemist": {
+    signalLine: "Your loyalty is admirable. The question is whether it is still serving the thesis or only protecting the story.",
+    strength: "Exceptional patience",
+    blindSpot: "Confusing holding with examining",
+    edge: "Meaningful long-horizon compounding",
+    patternConsistency: "High",
+    volatility: "Low to Moderate",
+    fingerprints: ["Patience is identity-level", "Values shape capital", "Review cycles arrive too late"]
+  },
+  "The Intuitive Hunter": {
+    signalLine: "Your instinct is real. The risk is that the wrong read arrives wearing the exact same confidence as the right one.",
+    strength: "Fast pattern recognition",
+    blindSpot: "Uniform confidence in every read",
+    edge: "Early decisive positioning",
+    patternConsistency: "Moderate",
+    volatility: "High",
+    fingerprints: ["Acts before the room", "Reads are fast, logs are rare", "Calibration matters more than courage"]
+  },
+  "The Balanced Optimizer": {
+    signalLine: "You almost never make the obvious mistake. The cost is how rarely you allow yourself the obvious outlier win.",
+    strength: "Robust balanced process",
+    blindSpot: "Optimization toward comfort",
+    edge: "Consistent high-quality decision-making",
+    patternConsistency: "Very High",
+    volatility: "Moderate",
+    fingerprints: ["Strong everywhere, peaked nowhere", "Balance protects and limits", "Best ideas rarely get full weight"]
+  }
+};
+
+// ============================================================
+// PERSONALIZATION + RENDERING
+// ============================================================
+
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const name = (params.get('name') || 'Nicholas').trim();
+  let archetypeInput = (params.get('archetype') || 'The Calculated Dreamer').trim();
+  const rawScore = parseInt(params.get('score'), 10);
+  const score = (!isNaN(rawScore) && rawScore >= 0 && rawScore <= 100) ? rawScore : 81;
+
+  // Resolve archetype (case-insensitive, fallback to Calculated Dreamer)
+  const matchKey = Object.keys(ARCHETYPES).find(k => k.toLowerCase() === archetypeInput.toLowerCase());
+  const archetypeKey = matchKey || "The Calculated Dreamer";
+  const data = ARCHETYPES[archetypeKey];
+  const meta = PROFILE_META[archetypeKey] || PROFILE_META["The Calculated Dreamer"];
+
+  // Short form
+  let archetypeMini = archetypeKey;
+  if (archetypeKey.toLowerCase().startsWith('the ')) {
+    archetypeMini = archetypeKey.substring(4).trim();
+  }
+
+  // --- Helpers ---
+  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  const setHTML = (id, v) => { const el = document.getElementById(id); if (el) el.innerHTML = v; };
+
+  // --- Cover / Identity ---
+  setText('name-cover', name);
+  setText('archetype-full', archetypeKey);
+  setText('archetype-mini', archetypeMini);
+  setText('score-val', score);
+  setText('name-ch2', name);
+  setText('name-ch4', name);
+  setText('intro-paragraph', data.intro(name));
+  setText('signal-line', meta.signalLine);
+  setText('summary-strength', meta.strength);
+  setText('summary-blindspot', meta.blindSpot);
+  setText('summary-edge', meta.edge);
+
+  // Dossier number (stable hash of name + archetype)
+  const hash = Array.from(name + archetypeKey).reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 5381);
+  setText('dossier-no', 'IA-' + String(hash % 9000 + 1000));
+
+  // Date
+  const now = new Date();
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  setText('date-issued', `${months[now.getMonth()]} ${now.getFullYear()} · 2026 Edition`);
+  const confidence = score >= 90 ? 'Very High' : score >= 78 ? 'High' : score >= 65 ? 'Moderate' : 'Developing';
+  setText('meta-confidence', confidence);
+  setText('meta-pattern-consistency', meta.patternConsistency);
+  setText('meta-volatility', meta.volatility);
+
+  // Score ring
+  const circumference = 2 * Math.PI * 86;
+  const ring = document.getElementById('score-circle');
+  if (ring) {
+    ring.setAttribute('stroke-dasharray', circumference.toFixed(1));
+    ring.setAttribute('stroke-dashoffset', (circumference * (1 - score / 100)).toFixed(1));
+  }
+
+  // --- II. Pattern ---
+  setText('pattern-intro', data.patternIntro);
+  setText('pattern-p1', data.patternP1);
+  setText('pattern-p2', data.patternP2);
+  setText('pattern-p3', data.patternP3);
+  setHTML('hidden-pattern-headline', data.hiddenHeadline);
+  setHTML('hidden-pattern-body', data.hiddenBody);
+  setText('cost-headline', data.costHeadline);
+  setText('cost-body', data.costBody);
+  setText('pull-quote', data.pullQuote);
+  setText('decision-bias', data.decisionBias);
+  setText('decision-bias-sub', data.decisionBiasSub);
+
+  // Rationalizations
+  const rationalContainer = document.getElementById('rationalizations');
+  if (rationalContainer && data.rationalizations) {
+    rationalContainer.innerHTML = data.rationalizations.map(([label, sub]) => `
+      <div class="flex items-start gap-3">
+        <span class="font-display italic text-gold-deep">→</span>
+        <div>
+          <span class="text-ink font-medium">${label}</span>
+          <span class="text-ink-muted block text-xs mt-0.5">${sub}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // --- III. Brutal Truth ---
+  setHTML('brutal-headline', data.brutalHeadline);
+  setText('brutal-body', data.brutalBody);
+
+  // --- IV. Scenarios ---
+  setHTML('scenarios-h2', data.scenariosH2);
+  const scenariosContainer = document.getElementById('scenarios-container');
+  if (scenariosContainer) {
+    scenariosContainer.innerHTML = data.scenarios.map((s, i) => `
+      <div class="grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+        <div class="md:col-span-3">
+          <div class="font-display text-5xl md:text-6xl text-gold-deep/80 leading-none">${String(i+1).padStart(2,'0')}</div>
+          <div class="text-xs tracking-widest uppercase text-ink-muted mt-3">${s.tag}</div>
+        </div>
+        <div class="md:col-span-9 scenario">
+          <h3 class="font-display text-2xl md:text-3xl text-ink leading-tight mb-4">${s.h}</h3>
+          <p class="text-base text-ink-soft leading-relaxed mb-3">${s.body}</p>
+          <p class="text-sm text-ink-muted italic">${s.tell}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // --- V. Dashboard: Radar ---
+  // Axis order: [Vision, Conviction, Independence, Discipline, Patience, Risk]
+  // Position on radar (hex pointing up): top, upper-right, lower-right, bottom, lower-left, upper-left
+  const axisLabels = ['LONG-TERM VISION', 'CONVICTION', 'INDEPENDENCE', 'DISCIPLINE', 'PATIENCE', 'RISK TOLERANCE'];
+  const cx = 200, cy = 200;
+  const axisAngles = [-90, -30, 30, 90, 150, 210]; // degrees
+
+  // Grid (5 concentric hexagons)
+  const gridG = document.getElementById('radar-grid');
+  if (gridG) {
+    const gridHtml = [1, 0.8, 0.6, 0.4, 0.2].map(scale => {
+      const r = 140 * scale;
+      const pts = axisAngles.map(a => {
+        const rad = a * Math.PI / 180;
+        return `${(cx + r * Math.cos(rad)).toFixed(1)},${(cy + r * Math.sin(rad)).toFixed(1)}`;
+      }).join(' ');
+      return `<polygon points="${pts}"/>`;
+    }).join('');
+    gridG.innerHTML = gridHtml;
+  }
+
+  // Axis lines (3 crossing lines for 6-axis hex)
+  const axesG = document.getElementById('radar-axes');
+  if (axesG) {
+    axesG.innerHTML = [0, 1, 2].map(i => {
+      const a1 = axisAngles[i] * Math.PI / 180;
+      const a2 = axisAngles[i+3] * Math.PI / 180;
+      const x1 = cx + 140 * Math.cos(a1), y1 = cy + 140 * Math.sin(a1);
+      const x2 = cx + 140 * Math.cos(a2), y2 = cy + 140 * Math.sin(a2);
+      return `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
+    }).join('');
+  }
+
+  // Labels
+  const labelsG = document.getElementById('radar-labels');
+  if (labelsG) {
+    const labelPositions = [
+      { x: 200, y: 44, anchor: 'middle' },   // top
+      { x: 337, y: 124, anchor: 'start' },   // upper-right
+      { x: 337, y: 280, anchor: 'start' },   // lower-right
+      { x: 200, y: 362, anchor: 'middle' },  // bottom
+      { x: 63, y: 280, anchor: 'end' },      // lower-left
+      { x: 63, y: 124, anchor: 'end' },      // upper-left
+    ];
+    labelsG.innerHTML = labelPositions.map((p, i) =>
+      `<text x="${p.x}" y="${p.y}" text-anchor="${p.anchor}" font-weight="500">${axisLabels[i]}</text>`
+    ).join('');
+  }
+
+  // Data polygon
+  const radarShape = document.getElementById('radar-shape');
+  const radarPoints = document.getElementById('radar-points');
+  if (radarShape && data.radar) {
+    const coords = data.radar.map((v, i) => {
+      const r = 140 * (v / 100);
+      const rad = axisAngles[i] * Math.PI / 180;
+      return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+    });
+    radarShape.setAttribute('points', coords.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' '));
+    if (radarPoints) {
+      radarPoints.innerHTML = coords.map(([x, y]) =>
+        `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4"/>`
+      ).join('');
+    }
+  }
+
+  // Radar reading (interpretation below chart)
+  if (data.radarReading) {
+    setText('radar-reading', data.radarReading);
+  }
+
+  // --- V. Bars ---
+  const barsContainer = document.getElementById('bars-container');
+  if (barsContainer && data.bars) {
+    barsContainer.innerHTML = data.bars.map(([label, val, caption], idx) => {
+      const highlight = val >= 65;
+      const grad = highlight
+        ? 'from-gold-deep to-gold'
+        : 'from-ink-muted to-ink-soft';
+      const numColor = highlight ? 'text-gold-deep' : 'text-ink';
+      return `
+        <div>
+          <div class="flex items-baseline justify-between mb-2">
+            <span class="text-sm font-medium">${label}</span>
+            <span class="font-display text-lg"><span class="${numColor}">${val}</span><span class="text-ink-muted text-sm">/100</span></span>
+          </div>
+          <div class="h-1.5 bg-ink/8 rounded-full overflow-hidden">
+            <div class="bar-fill h-full bg-gradient-to-r ${grad} rounded-full" style="width: ${val}%; animation-delay: ${0.1 + idx * 0.1}s"></div>
+          </div>
+          <div class="text-xs text-ink-muted mt-1.5">${caption}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // --- V. Meters ---
+  const metersContainer = document.getElementById('meters-container');
+  if (metersContainer && data.meters) {
+    metersContainer.innerHTML = data.meters.map(([leftLabel, rightLabel, pos, caption]) => {
+      const leftBold = pos < 50;
+      return `
+        <div>
+          <div class="flex items-center justify-between mb-4 text-xs tracking-widest uppercase">
+            <span class="${leftBold ? 'text-ink font-medium' : 'text-ink-muted'}">${leftLabel}</span>
+            <span class="${leftBold ? 'text-ink-muted' : 'text-ink font-medium'}">${rightLabel}</span>
+          </div>
+          <div class="meter-track">
+            <span class="meter-tick" style="left: 0%"></span>
+            <span class="meter-tick" style="left: 25%"></span>
+            <span class="meter-tick" style="left: 50%"></span>
+            <span class="meter-tick" style="left: 75%"></span>
+            <span class="meter-tick" style="left: 100%"></span>
+            <span class="meter-dot" style="left: ${pos}%"></span>
+          </div>
+          <p class="text-sm text-ink-soft mt-4">${caption}</p>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // --- V. Portfolio ---
+  setText('portfolio-subtitle', data.portfolioSubtitle);
+  if (data.portfolioReading) {
+    setText('portfolio-reading', data.portfolioReading);
+  }
+  const fingerprintTags = document.getElementById('fingerprint-tags');
+  if (fingerprintTags && meta.fingerprints) {
+    fingerprintTags.innerHTML = meta.fingerprints.map(tag => `
+      <span class="chip">${tag}</span>
+    `).join('');
+  }
+  const portfolioWedge = document.getElementById('portfolio-wedge');
+  const portfolioCards = document.getElementById('portfolio-cards');
+  if (portfolioWedge && data.portfolio) {
+    portfolioWedge.innerHTML = data.portfolio.map(([_, pct, color]) =>
+      `<div style="background: ${color}; width: ${pct}%"></div>`
+    ).join('');
+  }
+  if (portfolioCards && data.portfolio) {
+    portfolioCards.innerHTML = data.portfolio.map(([label, pct, color, desc]) => `
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="w-2.5 h-2.5 rounded-sm" style="background: ${color}"></span>
+          <span class="text-[10px] tracking-widest uppercase text-ink-muted">${label}</span>
+        </div>
+        <div class="font-display text-3xl text-ink">${pct}<span class="text-base text-ink-muted">%</span></div>
+        <p class="text-xs text-ink-soft mt-2 leading-relaxed">${desc}</p>
+      </div>
+    `).join('');
+  }
+
+  // --- VI. Playbook ---
+  setText('playbook-intro', data.playbookIntro);
+  const playbookContainer = document.getElementById('playbook-container');
+  if (playbookContainer && data.playbook) {
+    playbookContainer.innerHTML = data.playbook.map(([title, body], i) => `
+      <div class="grid md:grid-cols-12 gap-6 items-start card-paper p-6 md:p-8">
+        <div class="md:col-span-1"><div class="font-display text-4xl text-gold-deep leading-none">${String(i+1).padStart(2,'0')}</div></div>
+        <div class="md:col-span-11">
+          <h3 class="font-display text-xl md:text-2xl mb-2">${title}</h3>
+          <p class="text-sm text-ink-soft leading-relaxed">${body}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // --- VII. Two Futures ---
+  setHTML('path-a-headline', data.pathAHeadline);
+  setHTML('path-b-headline', data.pathBHeadline);
+
+  const renderPath = (containerId, body, isDark) => {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = body.map(item => {
+      if (typeof item === 'string') return `<p>${item}</p>`;
+      if (item.bold) {
+        const borderClass = isDark ? 'border-cream/15 text-cream' : 'border-ink/10 text-ink';
+        return `<p class="${isDark ? 'text-cream' : 'text-ink'} font-medium pt-4 border-t ${borderClass}">${item.bold}</p>`;
+      }
+      return '';
+    }).join('');
+  };
+  renderPath('path-a-body', data.pathABody, true);
+  renderPath('path-b-body', data.pathBBody, false);
+
+  // --- VIII. Identity Reframe ---
+  const reframeBlock = document.getElementById('reframe-block');
+  if (reframeBlock) {
+    reframeBlock.innerHTML = `
+      <div class="display-tight text-4xl md:text-6xl lg:text-7xl text-ink font-normal leading-[1.05] mb-10">
+        ${data.reframeLead(name)}<br><br>
+        <span class="serif-italic text-clay">${data.reframeAccent}</span>
+      </div>
+      <div class="display-tight text-4xl md:text-6xl lg:text-7xl text-gold-deep font-normal leading-[1.05]">
+        <span class="serif-italic">${data.reframeTwist}</span><br>
+        <span class="serif-italic">${data.reframeTwistAccent}</span><br>
+        ${data.reframeTail}
+      </div>
+    `;
+  }
+
+  const reframeClosing = document.getElementById('reframe-closing');
+  if (reframeClosing && data.reframeClosing) {
+    reframeClosing.innerHTML = data.reframeClosing.map(item => {
+      if (typeof item === 'string') return `<p>${item}</p>`;
+      if (item.italic) return `<p class="font-display italic text-xl text-gold-deep">${item.italic}</p>`;
+      if (item.bold) return `<p class="text-ink font-medium">${item.bold}</p>`;
+      return '';
+    }).join('');
+  }
+
+  // Update page title
+  document.title = `Behavioral Dossier — ${name}`;
+})();
+</script>
 
 </body>
 </html>
