@@ -527,7 +527,11 @@
           </ul>
 
           <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <a href="https://buy.stripe.com/bJeeV6g9O9FR0C4c12d7q00" target="_blank" rel="noopener noreferrer" class="btn-gold text-base inline-flex items-center justify-center">
+            <a href="https://buy.stripe.com/bJeeV6g9O9FR0C4c12d7q00"
+   target="_blank"
+   rel="noopener noreferrer"
+   onclick="plausible('ClickStripe')"
+   class="btn-gold text-base inline-flex items-center justify-center">
               Show me the rest of me — $2.99
             </a>
             <div class="text-sm text-cream/60">
@@ -811,6 +815,8 @@ function showView(viewId) {
 }
 
 function startQuiz() {
+  plausible('StartQuiz')
+
   currentStep = 0;
   answers = {};
   renderStep();
@@ -993,6 +999,8 @@ function prevStep() {
 // RESULTS COMPUTATION
 // ============================================================
 function computeAndShowResults() {
+  plausible('ViewResults')
+
   const stepScores = STEPS.map((_, stepIdx) => {
     let sum = 0;
     for (let q = 0; q < QUESTIONS_PER_STEP; q++) {
