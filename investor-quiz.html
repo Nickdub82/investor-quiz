@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>What Kind of Investor Are You? — The Investor Archetype Assessment</title>
+
+<!-- Tailwind CSS via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Premium typography: Fraunces (display serif) + Inter Tight (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+  // Extend Tailwind with our custom design tokens
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          sans: ['Inter Tight', 'system-ui', 'sans-serif'],
+        },
+        colors: {
+          cream: '#F7F2EA',
+          'cream-deep': '#EFE7DA',
+          ink: '#1A1F2E',
+          'ink-soft': '#2D3447',
+          gold: '#B8894A',
+          'gold-light': '#D4AE77',
+          'gold-deep': '#8E6935',
+          sage: '#6B8370',
+          clay: '#C4745D',
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  /* ---------- Base ---------- */
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    background-color: #F7F2EA;
+    color: #1A1F2E;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Subtle paper-grain texture overlay — adds warmth + tactile feel */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Typography ---------- */
+  .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+  .serif-italic { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; }
+
+  /* ---------- Soft gradient orbs for hero atmosphere ---------- */
+  .atmosphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  /* ---------- Rating scale circles ---------- */
+  .rating-circle {
+    position: relative;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rating-circle::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1.5px solid transparent;
+    transition: border-color 0.35s ease;
+  }
+  .rating-circle:hover { transform: scale(1.12); }
+  .rating-circle.selected { transform: scale(1.12); box-shadow: 0 8px 24px rgba(26, 31, 46, 0.15); }
+  .rating-circle.selected::after { border-color: #1A1F2E; }
+
+  /* Scale colors — soft, warm, sophisticated (not jarring) */
+  .rc-1 { background: #F4CCCB; } /* soft pink — strongly disagree */
+  .rc-2 { background: #F8D9B8; } /* light orange — disagree */
+  .rc-3 { background: #D9D9D4; } /* warm gray — neutral */
+  .rc-4 { background: #C9DBC4; } /* light green — agree */
+  .rc-5 { background: #8FC4BD; } /* teal — strongly agree */
+
+  /* ---------- Progress bar ---------- */
+  .progress-track {
+    height: 3px;
+    background: rgba(26, 31, 46, 0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #B8894A, #D4AE77);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+  }
+
+  /* ---------- Step transitions ---------- */
+  .step-panel {
+    animation: stepIn 0.5s cubic-bezier(0.25, 0.4, 0.25, 1) both;
+  }
+  @keyframes stepIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Question card staggered reveal ---------- */
+  .question-card {
+    animation: fadeUp 0.6s cubic-bezier(0.25, 0.4, 0.25, 1) both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-primary {
+    background: #1A1F2E;
+    color: #F7F2EA;
+    border-radius: 999px;
+    padding: 1rem 2.25rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(26, 31, 46, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: #2D3447;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(26, 31, 46, 0.28);
+  }
+  .btn-primary:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .btn-ghost {
+    border-radius: 999px;
+    padding: 1rem 2rem;
+    font-weight: 500;
+    color: #1A1F2E;
+    border: 1px solid rgba(26, 31, 46, 0.2);
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+  .btn-ghost:hover:not(:disabled) {
+    background: rgba(26, 31, 46, 0.04);
+    border-color: rgba(26, 31, 46, 0.4);
+  }
+  .btn-ghost:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #B8894A 0%, #8E6935 100%);
+    color: #F7F2EA;
+    border-radius: 999px;
+    padding: 1.15rem 2.5rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 28px rgba(184, 137, 74, 0.38);
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px rgba(184, 137, 74, 0.5);
+  }
+
+  /* ---------- Archetype match bars ---------- */
+  .match-bar {
+    height: 6px;
+    background: rgba(26, 31, 46, 0.08);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .match-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 1.2s cubic-bezier(0.22, 0.6, 0.36, 1);
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop {
+    background: rgba(26, 31, 46, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .modal-panel {
+    animation: modalIn 0.4s cubic-bezier(0.25, 0.4, 0.25, 1) both;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* ---------- Decorative serif ornament ---------- */
+  .ornament {
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: #B8894A;
+    vertical-align: middle;
+  }
+
+  /* ---------- Hero breathe animation ---------- */
+  @keyframes breathe {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -10px) scale(1.05); }
+  }
+  .breathe-1 { animation: breathe 14s ease-in-out infinite; }
+  .breathe-2 { animation: breathe 18s ease-in-out infinite reverse; }
+
+  /* ---------- Success check animation ---------- */
+  @keyframes drawCheck {
+    to { stroke-dashoffset: 0; }
+  }
+  .check-path {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 60;
+    animation: drawCheck 0.8s 0.3s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
+
+  /* ---------- Hide scrollbar on body when modal open ---------- */
+  body.modal-open { overflow: hidden; }
+
+  /* ---------- Mobile tweaks ---------- */
+  @media (max-width: 640px) {
+    .rating-circle { width: 42px !important; height: 42px !important; }
+  }
+
+  /* Ensure content sits above grain texture */
+  main, nav, footer, .modal-root { position: relative; z-index: 2; }
+
+  /* Remove tap highlight */
+  * { -webkit-tap-highlight-color: transparent; }
+</style>
+</head>
+
+<body class="font-sans">
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav class="relative z-10 px-6 md:px-12 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-2.5">
+    <!-- Monogram mark -->
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="14" cy="14" r="13" stroke="#1A1F2E" stroke-width="1.2"/>
+      <path d="M9 18V10L14 16L19 10V18" stroke="#B8894A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="font-display text-lg font-medium tracking-tight">Meridian</span>
+  </div>
+  <div class="hidden md:flex items-center gap-8 text-sm text-ink-soft">
+    <a href="#" class="hover:text-ink transition">About the study</a>
+    <a href="#" class="hover:text-ink transition">Archetypes</a>
+    <a href="#" class="hover:text-ink transition">Research</a>
+  </div>
+  <div class="text-sm text-ink-soft hidden sm:block">
+    <span class="text-gold">◆</span> Est. 2024
+  </div>
+</nav>
+
+<!-- ============================================================
+     MAIN APP
+============================================================ -->
+<main class="relative">
+
+  <!-- ============================================================
+       VIEW 1: HERO / LANDING
+  ============================================================ -->
+  <section id="view-hero" class="min-h-[85vh] flex items-center px-6 md:px-12 py-16 relative overflow-hidden">
+
+    <!-- Atmospheric gradient orbs -->
+    <div class="atmosphere breathe-1" style="width:520px; height:520px; background:#D4AE77; top:-120px; right:-120px;"></div>
+    <div class="atmosphere breathe-2" style="width:420px; height:420px; background:#8FC4BD; bottom:-100px; left:-80px; opacity:0.3;"></div>
+
+    <div class="max-w-6xl mx-auto w-full grid md:grid-cols-12 gap-12 items-center relative">
+
+      <div class="md:col-span-7">
+        <!-- Eyebrow -->
+        <div class="flex items-center gap-3 mb-8">
+          <span class="ornament"></span>
+          <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">The Investor Archetype Assessment</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="font-display text-5xl md:text-7xl leading-[1.02] tracking-tight text-ink font-normal mb-6">
+          What kind of<br>
+          <span class="serif-italic text-gold-deep">investor</span> are you?
+        </h1>
+
+        <!-- Subhead -->
+        <p class="text-lg md:text-xl text-ink-soft max-w-xl leading-relaxed mb-10 font-light">
+          A considered assessment of your instincts, appetites, and blind spots —
+          distilled into a single archetype that explains how you really move capital.
+          Eight minutes, sixty questions, lasting clarity.
+        </p>
+
+        <!-- CTA -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
+          <button onclick="startQuiz()" class="btn-primary text-base">
+            Begin the assessment
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+          <span class="text-sm text-ink-soft/70">No account required · Free to take</span>
+        </div>
+
+        <!-- Trust row -->
+        <div class="flex flex-wrap gap-8 pt-8 border-t border-ink/10">
+          <div>
+            <div class="font-display text-2xl text-ink">60</div>
+            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Calibrated questions</div>
+          </div>
+          <div>
+            <div class="font-display text-2xl text-ink">6</div>
+            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Archetypes measured</div>
+          </div>
+          <div>
+            <div class="font-display text-2xl text-ink">8<span class="text-base text-ink-soft"> min</span></div>
+            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Average time</div>
+          </div>
+          <div>
+            <div class="font-display text-2xl text-ink">Expert<span class="text-gold">.</span></div>
+            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Authored framework</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual panel — layered archetype card stack -->
+      <div class="md:col-span-5 relative h-[460px] hidden md:block">
+
+        <!-- Back card -->
+        <div class="absolute top-8 right-4 w-64 h-80 bg-cream-deep rounded-sm shadow-xl rotate-[6deg] p-6 border border-ink/5">
+          <div class="text-xs tracking-widest text-gold-deep uppercase mb-4">03 / 06</div>
+          <div class="font-display text-2xl leading-tight">The Patient Gardener</div>
+          <div class="mt-8 w-full h-px bg-ink/10"></div>
+          <div class="mt-4 text-xs text-ink-soft/70 italic">"Time compounds what conviction plants."</div>
+        </div>
+
+        <!-- Mid card -->
+        <div class="absolute top-16 right-16 w-64 h-80 bg-white rounded-sm shadow-2xl -rotate-[3deg] p-6 border border-ink/5">
+          <div class="text-xs tracking-widest text-gold-deep uppercase mb-4">05 / 06</div>
+          <div class="font-display text-2xl leading-tight">The Contrarian Scholar</div>
+          <div class="mt-8 w-full h-px bg-ink/10"></div>
+          <div class="mt-4 text-xs text-ink-soft/70 italic">"Conviction begins where the crowd ends."</div>
+        </div>
+
+        <!-- Front card -->
+        <div class="absolute top-4 right-28 w-64 h-80 bg-ink text-cream rounded-sm shadow-2xl rotate-[2deg] p-6">
+          <div class="text-xs tracking-widest text-gold-light uppercase mb-4">01 / 06</div>
+          <div class="font-display text-2xl leading-tight">The Visionary Architect</div>
+          <div class="mt-6 text-sm text-cream/70 leading-relaxed">Builds portfolios around a thesis about the future — and has the patience to wait for the world to agree.</div>
+          <div class="mt-auto absolute bottom-6 left-6 right-6">
+            <div class="w-full h-px bg-cream/20 mb-4"></div>
+            <div class="flex items-center justify-between">
+              <div class="text-xs tracking-widest text-gold-light">MERIDIAN</div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AE77" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14V10L12 14L16 10V14"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Subtle divider -->
+  <div class="max-w-6xl mx-auto px-6 md:px-12">
+    <div class="h-px bg-ink/10"></div>
+  </div>
+
+  <!-- Authority strip -->
+  <section class="max-w-6xl mx-auto px-6 md:px-12 py-12">
+    <div class="text-center text-xs tracking-[0.3em] uppercase text-ink-soft/60 mb-6">Developed with input from</div>
+    <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 font-display text-lg text-ink-soft/80">
+      <span>Behavioral Economists</span>
+      <span class="text-gold">◆</span>
+      <span class="serif-italic">Portfolio Managers</span>
+      <span class="text-gold">◆</span>
+      <span>Wealth Advisors</span>
+      <span class="text-gold">◆</span>
+      <span class="serif-italic">Academic Researchers</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VIEW 2: THE QUIZ
+  ============================================================ -->
+  <section id="view-quiz" class="hidden min-h-screen px-6 md:px-12 py-12 relative">
+
+    <div class="max-w-3xl mx-auto">
+
+      <!-- Header: step indicator + progress -->
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <span class="ornament"></span>
+            <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">
+              Step <span id="current-step">1</span> of 6
+            </span>
+          </div>
+          <button onclick="exitQuiz()" class="text-sm text-ink-soft/60 hover:text-ink transition flex items-center gap-1.5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            Exit
+          </button>
+        </div>
+
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill" style="width: 16.67%"></div>
+        </div>
+
+        <div class="flex justify-between mt-3 text-xs text-ink-soft/60">
+          <span id="questions-answered">0 of 60 answered</span>
+          <span id="step-title" class="serif-italic">Risk & Appetite</span>
+        </div>
+      </div>
+
+      <!-- Scale legend — shown once at top -->
+      <div class="hidden md:flex items-center justify-between text-xs text-ink-soft/70 mb-8 px-2">
+        <span class="w-20 text-left">Strongly disagree</span>
+        <span class="flex-1 text-center">Neutral</span>
+        <span class="w-20 text-right">Strongly agree</span>
+      </div>
+
+      <!-- Questions container -->
+      <div id="questions-container" class="space-y-2">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Nav buttons -->
+      <div class="flex items-center justify-between mt-14 pt-8 border-t border-ink/10">
+        <button id="btn-prev" onclick="prevStep()" class="btn-ghost" disabled>
+          ← Previous
+        </button>
+        <div id="step-dots" class="flex gap-2">
+          <!-- Populated by JS -->
+        </div>
+        <button id="btn-next" onclick="nextStep()" class="btn-primary" disabled>
+          Next
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VIEW 3: TEASER RESULTS
+  ============================================================ -->
+  <section id="view-results" class="hidden min-h-screen px-6 md:px-12 py-16 relative overflow-hidden">
+
+    <!-- Ambient atmosphere -->
+    <div class="atmosphere" style="width:600px; height:600px; background:#D4AE77; top:-180px; left:50%; transform:translateX(-50%); opacity:0.25;"></div>
+
+    <div class="max-w-4xl mx-auto relative">
+
+      <!-- Eyebrow -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-3">
+          <span class="ornament"></span>
+          <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">Your Assessment Is Complete</span>
+          <span class="ornament"></span>
+        </div>
+      </div>
+
+      <!-- Headline -->
+      <h2 class="font-display text-4xl md:text-6xl text-center leading-[1.05] mb-4">
+        Your dominant type is
+      </h2>
+      <h3 id="archetype-name" class="font-display serif-italic text-5xl md:text-7xl text-center text-gold-deep leading-tight mb-8">
+        The Visionary Architect
+      </h3>
+
+      <!-- Match percentage -->
+      <div class="text-center mb-12">
+        <div class="inline-flex items-baseline gap-2 px-6 py-3 bg-white/60 backdrop-blur border border-ink/10 rounded-full">
+          <span id="archetype-match" class="font-display text-3xl text-ink">79<span class="text-gold">%</span></span>
+          <span class="text-sm text-ink-soft tracking-wider uppercase">match</span>
+        </div>
+      </div>
+
+      <!-- Flattering description -->
+      <div class="max-w-2xl mx-auto text-center mb-16">
+        <p id="archetype-desc" class="text-lg md:text-xl text-ink-soft leading-relaxed font-light">
+          You see markets the way architects see empty lots — as raw potential waiting for a
+          coherent vision. You invest with conviction, prefer compounding patience over reactive
+          trading, and tend to be right in ways that take years for others to notice.
+        </p>
+      </div>
+
+      <!-- Other archetypes breakdown -->
+      <div class="bg-white/70 backdrop-blur rounded-sm border border-ink/10 p-8 md:p-12 mb-12 shadow-sm">
+        <div class="flex items-center justify-between mb-8">
+          <h4 class="font-display text-xl">Your full archetype signature</h4>
+          <span class="text-xs tracking-widest uppercase text-ink-soft/60">Six dimensions</span>
+        </div>
+
+        <div id="archetype-breakdown" class="space-y-5">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Unlock CTA -->
+      <div class="bg-ink text-cream rounded-sm p-8 md:p-12 relative overflow-hidden">
+        <!-- Gold accent corner -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/30 to-transparent"></div>
+
+        <div class="relative">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="w-10 h-px bg-gold-light"></span>
+            <span class="text-xs tracking-[0.25em] uppercase text-gold-light">The Full Report</span>
+          </div>
+
+          <h4 class="font-display text-3xl md:text-4xl leading-tight mb-4">
+            Unlock your complete<br>
+            <span class="serif-italic text-gold-light">12-page personalized dossier</span>
+          </h4>
+
+          <p class="text-cream/70 leading-relaxed mb-8 max-w-xl">
+            Includes your full archetype profile, behavioral strengths and blind spots, recommended
+            asset allocations, sample portfolio structures, and a tailored reading list — all written
+            specifically for how <span class="italic">you</span> think.
+          </p>
+
+          <!-- Deliverable list -->
+          <ul class="grid sm:grid-cols-2 gap-3 mb-10 text-sm text-cream/80">
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Detailed archetype profile</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Behavioral strengths & blind spots</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Recommended asset allocation</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Sample portfolio structures</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Decision-making framework</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Curated reading list</li>
+          </ul>
+
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <button onclick="openPaymentModal()" class="btn-gold text-base">
+              Unlock my full report — $2.99
+            </button>
+            <div class="text-sm text-cream/60">
+              <span class="line-through">$19.99</span>
+              <span class="ml-2 text-gold-light">Launch pricing</span>
+            </div>
+          </div>
+
+          <div class="mt-6 flex items-center gap-6 text-xs text-cream/50">
+            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secure payment</span>
+            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Instant delivery</span>
+            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 8v4l3 2"/></svg> 7-day refund</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       VIEW 4: SUCCESS
+  ============================================================ -->
+  <section id="view-success" class="hidden min-h-[90vh] flex items-center px-6 md:px-12 py-16 relative overflow-hidden">
+
+    <div class="atmosphere" style="width:500px; height:500px; background:#8FC4BD; top:10%; left:50%; transform:translateX(-50%); opacity:0.3;"></div>
+
+    <div class="max-w-2xl mx-auto text-center relative">
+
+      <!-- Animated checkmark in elegant circle -->
+      <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white border border-ink/10 shadow-sm mb-10">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" stroke="#B8894A" stroke-width="1.2" stroke-opacity="0.3"/>
+          <path class="check-path" d="M14 24L21 31L34 17" stroke="#B8894A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <span class="ornament"></span>
+        <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">Payment Received</span>
+        <span class="ornament"></span>
+      </div>
+
+      <h2 class="font-display text-4xl md:text-5xl leading-[1.1] mb-6">
+        Thank you.<br>
+        <span class="serif-italic text-gold-deep">Your report is on its way.</span>
+      </h2>
+
+      <p class="text-lg text-ink-soft leading-relaxed mb-2 max-w-xl mx-auto">
+        We're generating your personalized 12-page dossier now.
+      </p>
+      <p class="text-base text-ink-soft/70 mb-12">
+        It will arrive in your inbox within the next few minutes.
+      </p>
+
+      <!-- Process indicator -->
+      <div class="bg-white/70 backdrop-blur border border-ink/10 rounded-sm p-6 md:p-8 mb-10 text-left max-w-md mx-auto">
+        <div class="text-xs tracking-widest uppercase text-ink-soft/60 mb-4">Generating your dossier</div>
+
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 text-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8370" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            <span class="text-ink">Analyzing your archetype profile</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6B8370" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            <span class="text-ink">Compiling behavioral insights</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <div class="w-4 h-4 rounded-full border-2 border-gold border-t-transparent animate-spin"></div>
+            <span class="text-ink">Writing your personalized narrative</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm opacity-40">
+            <div class="w-4 h-4 rounded-full border border-ink/30"></div>
+            <span class="text-ink">Delivering to your inbox</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="alert('Your preview is opening in a new tab…')" class="btn-primary text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+          Preview sample pages
+        </button>
+        <button onclick="resetToHome()" class="btn-ghost text-sm">
+          Return home
+        </button>
+      </div>
+
+      <div class="mt-12 text-xs text-ink-soft/50">
+        Questions? Write to us at <span class="text-gold-deep">hello@meridian-assessment.com</span>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="relative z-10 px-6 md:px-12 py-10 border-t border-ink/10 mt-8">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-ink-soft/70">
+    <div class="flex items-center gap-2">
+      <svg width="18" height="18" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#1A1F2E" stroke-width="1.2"/><path d="M9 18V10L14 16L19 10V18" stroke="#B8894A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="font-display">Meridian Assessment</span>
+    </div>
+    <div class="flex items-center gap-6 text-xs">
+      <a href="#" class="hover:text-ink transition">Privacy</a>
+      <a href="#" class="hover:text-ink transition">Terms</a>
+      <a href="#" class="hover:text-ink transition">Research methodology</a>
+      <span>© 2026</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     PAYMENT MODAL
+============================================================ -->
+<div id="payment-modal" class="modal-root fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+  <div class="modal-panel bg-cream w-full max-w-md rounded-sm shadow-2xl relative overflow-hidden">
+
+    <!-- Gold top bar -->
+    <div class="h-1 bg-gradient-to-r from-gold-deep via-gold to-gold-light"></div>
+
+    <button onclick="closePaymentModal()" class="absolute top-5 right-5 text-ink-soft/60 hover:text-ink transition z-10">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <div class="p-8 md:p-10">
+
+      <!-- Header -->
+      <div class="flex items-center gap-3 mb-6">
+        <span class="ornament"></span>
+        <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">Complete Your Order</span>
+      </div>
+
+      <h3 class="font-display text-3xl leading-tight mb-2">
+        Your full <span class="serif-italic">archetype dossier</span>
+      </h3>
+      <p class="text-sm text-ink-soft/80 mb-8">12 personalized pages, delivered in minutes.</p>
+
+      <!-- Line items -->
+      <div class="border-t border-b border-ink/10 py-5 mb-6 space-y-3 text-sm">
+        <div class="flex justify-between">
+          <span class="text-ink-soft">Investor Archetype Dossier</span>
+          <span class="text-ink">$2.99</span>
+        </div>
+        <div class="flex justify-between text-ink-soft/60">
+          <span>Launch discount</span>
+          <span>—$17.00</span>
+        </div>
+        <div class="flex justify-between pt-3 border-t border-ink/10 font-display text-lg">
+          <span>Total</span>
+          <span><span class="text-gold-deep">$</span>2.99 <span class="text-xs text-ink-soft/60 ml-1">USD</span></span>
+        </div>
+      </div>
+
+      <!-- Email field -->
+      <div class="mb-6">
+        <label class="block text-xs tracking-widest uppercase text-ink-soft/70 mb-2">Email for delivery</label>
+        <input id="payment-email" type="email" placeholder="you@example.com" value="nick@example.com"
+               class="w-full bg-white border border-ink/15 rounded-sm px-4 py-3 text-sm focus:outline-none focus:border-gold transition"/>
+      </div>
+
+      <!-- Pay button -->
+      <button onclick="processPayment()" id="pay-btn" class="w-full btn-primary justify-center py-4">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        <span id="pay-btn-text">Pay $2.99 with Stripe</span>
+      </button>
+
+      <div class="mt-5 flex items-center justify-center gap-3 text-xs text-ink-soft/60">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Secured by 256-bit encryption
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+// ============================================================
+// QUIZ DATA
+// 60 questions organized into 6 steps of 10 questions each.
+// Each step maps loosely to a dimension of investing personality.
+// ============================================================
+const STEPS = [
+  {
+    title: "Risk & Appetite",
+    questions: [
+      "I am comfortable with significant short-term losses if the long-term potential is strong.",
+      "A 30% drop in my portfolio wouldn't keep me up at night.",
+      "I would rather aim for exceptional returns than protect what I have.",
+      "Volatility feels like opportunity more than threat.",
+      "I enjoy the emotional experience of investing, including the downs.",
+      "I trust my ability to stay rational when markets panic.",
+      "I'd rather take a calculated gamble than settle for average results.",
+      "Losses teach me more than wins do.",
+      "I am willing to concentrate my bets when I feel strong conviction.",
+      "I have stayed invested through at least one major market downturn without selling."
+    ]
+  },
+  {
+    title: "Time Horizon",
+    questions: [
+      "I think about investments in terms of decades, not quarters.",
+      "I rarely check my portfolio more than once a month.",
+      "Patience is my most important investing trait.",
+      "I'm willing to wait 5+ years for a thesis to play out.",
+      "Short-term noise doesn't influence my long-term decisions.",
+      "I believe compounding is more powerful than timing.",
+      "I would rather own something for 20 years than flip it for a quick profit.",
+      "I plan my finances around goals that are far in the future.",
+      "I don't feel pressure to 'do something' when markets move.",
+      "I've held an investment for at least 3 years without touching it."
+    ]
+  },
+  {
+    title: "Conviction & Research",
+    questions: [
+      "I enjoy reading annual reports and financial statements.",
+      "I have a clear mental model for why I own what I own.",
+      "I can explain my best investment to a friend in one paragraph.",
+      "I prefer depth over breadth when studying an opportunity.",
+      "I trust my own research more than analyst recommendations.",
+      "I've changed my mind publicly when the facts changed.",
+      "I keep a written record of my investment reasoning.",
+      "I prefer underfollowed ideas to consensus picks.",
+      "I get genuine pleasure from learning how businesses work.",
+      "I'd rather own one thing I deeply understand than ten I don't."
+    ]
+  },
+  {
+    title: "Social & Influence",
+    questions: [
+      "I often invest in the opposite direction of what's popular.",
+      "I rarely act on tips from friends or social media.",
+      "I feel more certain when fewer people agree with me.",
+      "I can hold an unpopular position for years without flinching.",
+      "I find financial media mostly unhelpful for decision-making.",
+      "I avoid 'hot' sectors precisely because they're hot.",
+      "My best ideas usually come from unusual sources.",
+      "I value being right more than being accepted.",
+      "I'd rather be early and wrong than late and consensus.",
+      "I've made money by doing the opposite of the crowd."
+    ]
+  },
+  {
+    title: "Systems & Discipline",
+    questions: [
+      "I have a documented investment process I follow consistently.",
+      "I set rules for myself and stick to them, even when tempted.",
+      "I rebalance on a schedule, not on emotion.",
+      "I separate my speculation money from my long-term savings.",
+      "I track my performance honestly, including my mistakes.",
+      "I prefer a boring system that works to an exciting one that doesn't.",
+      "I automate what I can to remove willpower from the equation.",
+      "I've built habits that make investing almost routine.",
+      "I know exactly what would make me sell a position.",
+      "Process matters more to me than any single decision."
+    ]
+  },
+  {
+    title: "Purpose & Values",
+    questions: [
+      "I invest with a clear vision of what money is for in my life.",
+      "I prefer investments aligned with my values, even at some cost.",
+      "I think about the world I'm helping build through my capital.",
+      "Money is a tool, not a scoreboard, for me.",
+      "I'd rather own fewer things of higher quality than many mediocre ones.",
+      "I measure success by freedom gained, not balance accumulated.",
+      "My investments reflect how I see the future unfolding.",
+      "I'm comfortable saying no to opportunities that don't fit my values.",
+      "Legacy and impact matter in how I allocate capital.",
+      "I invest in what I would be proud to own in twenty years."
+    ]
+  }
+];
+
+// Archetypes — indexed by step so each step's score feeds into one archetype
+const ARCHETYPES = [
+  {
+    name: "The Bold Voyager",
+    tagline: "Fortune favors the prepared risk-taker.",
+    color: "#C4745D",
+    description: "You treat markets the way explorers treat uncharted coastlines — with hunger, nerve, and a deep respect for what bold action can produce when others are hesitating. You're built for the long climb and the steep descents alike."
+  },
+  {
+    name: "The Patient Gardener",
+    tagline: "Time compounds what conviction plants.",
+    color: "#6B8370",
+    description: "You understand something most investors forget: the best returns come from doing very little, very consistently, for a very long time. You plant your thesis, resist the urge to dig it up, and let time do the heavy lifting."
+  },
+  {
+    name: "The Thoughtful Scholar",
+    tagline: "Understanding is the true edge.",
+    color: "#3F5A7D",
+    description: "You invest like a researcher, not a gambler. You read the footnotes, model the unit economics, and move only when your understanding outpaces your uncertainty. Your edge is not speed — it's depth."
+  },
+  {
+    name: "The Contrarian",
+    tagline: "Conviction begins where the crowd ends.",
+    color: "#8E6935",
+    description: "You've learned the expensive lesson that comfort and returns rarely occupy the same room. You look for what's loathed, underfollowed, or misunderstood — and you have the stomach to stand alone while you wait to be proven right."
+  },
+  {
+    name: "The Systems Architect",
+    tagline: "Process is the highest form of freedom.",
+    color: "#2D3447",
+    description: "You've built a machine for yourself — rules, rhythms, and rebalancing logic — that frees you from the exhausting daily question of 'what should I do now?' Your discipline looks boring from the outside. Inside, it's what makes everything else possible."
+  },
+  {
+    name: "The Visionary Architect",
+    tagline: "I build portfolios around a vision of the future.",
+    color: "#B8894A",
+    description: "You see markets the way architects see empty lots — as raw potential waiting for a coherent vision. You invest with conviction, prefer compounding patience over reactive trading, and tend to be right in ways that take years for others to notice."
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentStep = 0;           // 0..5
+let answers = {};              // { "stepIdx-qIdx": 1..5 }
+const TOTAL_STEPS = STEPS.length;
+const QUESTIONS_PER_STEP = 10;
+const TOTAL_QUESTIONS = TOTAL_STEPS * QUESTIONS_PER_STEP;
+
+// ============================================================
+// VIEW MANAGEMENT
+// ============================================================
+function showView(viewId) {
+  ['view-hero', 'view-quiz', 'view-results', 'view-success'].forEach(id => {
+    document.getElementById(id).classList.add('hidden');
+  });
+  document.getElementById(viewId).classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startQuiz() {
+  currentStep = 0;
+  answers = {};
+  renderStep();
+  showView('view-quiz');
+}
+
+function exitQuiz() {
+  if (Object.keys(answers).length > 0) {
+    if (!confirm("Exit the assessment? Your progress will be lost.")) return;
+  }
+  showView('view-hero');
+}
+
+function resetToHome() {
+  currentStep = 0;
+  answers = {};
+  showView('view-hero');
+}
+
+// ============================================================
+// QUIZ RENDERING
+// ============================================================
+function renderStep() {
+  const step = STEPS[currentStep];
+  const container = document.getElementById('questions-container');
+
+  // Update header
+  document.getElementById('current-step').textContent = currentStep + 1;
+  document.getElementById('step-title').textContent = step.title;
+
+  // Update progress bar — fills based on current step (not answers, so it always advances)
+  const progress = ((currentStep + 1) / TOTAL_STEPS) * 100;
+  document.getElementById('progress-fill').style.width = `${progress}%`;
+
+  // Update answered counter
+  updateAnsweredCount();
+
+  // Render step dots
+  renderStepDots();
+
+  // Render questions with staggered animation
+  container.innerHTML = '';
+  step.questions.forEach((q, qIdx) => {
+    const key = `${currentStep}-${qIdx}`;
+    const currentAnswer = answers[key];
+
+    const card = document.createElement('div');
+    card.className = 'question-card bg-white/60 backdrop-blur border border-ink/10 rounded-sm p-6 md:p-8 hover:border-ink/20 transition';
+    card.style.animationDelay = `${qIdx * 0.05}s`;
+
+    card.innerHTML = `
+      <div class="flex items-start gap-4 mb-6">
+        <div class="font-display text-sm text-gold-deep pt-1 min-w-[2rem]">
+          ${String(currentStep * QUESTIONS_PER_STEP + qIdx + 1).padStart(2, '0')}
+        </div>
+        <p class="text-base md:text-lg text-ink leading-relaxed flex-1">${q}</p>
+      </div>
+
+      <div class="flex items-center justify-between pl-0 md:pl-10">
+        ${[1, 2, 3, 4, 5].map(v => `
+          <button
+            onclick="selectAnswer(${currentStep}, ${qIdx}, ${v})"
+            class="rating-circle rc-${v} ${currentAnswer === v ? 'selected' : ''}"
+            style="width: 52px; height: 52px;"
+            aria-label="Rating ${v}"
+          >
+            ${currentAnswer === v ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1F2E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>' : ''}
+          </button>
+        `).join('')}
+      </div>
+
+      <div class="flex justify-between mt-3 pl-0 md:pl-10 text-[10px] tracking-widest uppercase text-ink-soft/50 md:hidden">
+        <span>Disagree</span>
+        <span>Agree</span>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  // Update nav buttons
+  document.getElementById('btn-prev').disabled = currentStep === 0;
+  updateNextButton();
+}
+
+function renderStepDots() {
+  const dotsContainer = document.getElementById('step-dots');
+  dotsContainer.innerHTML = '';
+  for (let i = 0; i < TOTAL_STEPS; i++) {
+    const dot = document.createElement('div');
+    const answeredInStep = countAnsweredInStep(i);
+    const isComplete = answeredInStep === QUESTIONS_PER_STEP;
+    const isCurrent = i === currentStep;
+
+    if (isCurrent) {
+      dot.className = 'w-6 h-1.5 rounded-full bg-ink transition-all';
+    } else if (isComplete) {
+      dot.className = 'w-1.5 h-1.5 rounded-full bg-gold transition-all';
+    } else {
+      dot.className = 'w-1.5 h-1.5 rounded-full bg-ink/15 transition-all';
+    }
+    dotsContainer.appendChild(dot);
+  }
+}
+
+function countAnsweredInStep(stepIdx) {
+  let count = 0;
+  for (let q = 0; q < QUESTIONS_PER_STEP; q++) {
+    if (answers[`${stepIdx}-${q}`]) count++;
+  }
+  return count;
+}
+
+function updateAnsweredCount() {
+  const total = Object.keys(answers).length;
+  document.getElementById('questions-answered').textContent = `${total} of ${TOTAL_QUESTIONS} answered`;
+}
+
+function updateNextButton() {
+  const btn = document.getElementById('btn-next');
+  const answeredThisStep = countAnsweredInStep(currentStep);
+  btn.disabled = answeredThisStep < QUESTIONS_PER_STEP;
+
+  // Change label on final step
+  if (currentStep === TOTAL_STEPS - 1) {
+    btn.querySelector('svg')?.remove();
+    btn.innerHTML = `See my results <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+  } else {
+    btn.innerHTML = `Next <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>`;
+  }
+}
+
+// ============================================================
+// INTERACTION
+// ============================================================
+function selectAnswer(stepIdx, qIdx, value) {
+  const key = `${stepIdx}-${qIdx}`;
+  answers[key] = value;
+
+  // Re-render just this question's circles (and update counters)
+  renderStep();
+
+  // Auto-scroll to the next unanswered question for smoother flow
+  setTimeout(() => {
+    const cards = document.querySelectorAll('#questions-container .question-card');
+    const nextUnanswered = Array.from(cards).find((c, i) => !answers[`${stepIdx}-${i}`]);
+    if (nextUnanswered) {
+      // scroll the next card into view gently (only if far below viewport)
+      const rect = nextUnanswered.getBoundingClientRect();
+      if (rect.top > window.innerHeight * 0.75) {
+        nextUnanswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }, 100);
+}
+
+function nextStep() {
+  if (countAnsweredInStep(currentStep) < QUESTIONS_PER_STEP) return;
+
+  if (currentStep < TOTAL_STEPS - 1) {
+    currentStep++;
+    renderStep();
+  } else {
+    // Finished — compute results and show results view
+    computeAndShowResults();
+  }
+}
+
+function prevStep() {
+  if (currentStep > 0) {
+    currentStep--;
+    renderStep();
+  }
+}
+
+// ============================================================
+// RESULTS COMPUTATION
+// ============================================================
+function computeAndShowResults() {
+  // Score each step (0-6, one per archetype)
+  // Sum of answers (1-5) across 10 questions = 10..50, normalize to %
+  const stepScores = STEPS.map((_, stepIdx) => {
+    let sum = 0;
+    for (let q = 0; q < QUESTIONS_PER_STEP; q++) {
+      sum += answers[`${stepIdx}-${q}`] || 0;
+    }
+    // Normalize: min=10 (all 1s), max=50 (all 5s) → scale to 40-95% range for display
+    const normalized = ((sum - 10) / 40) * 55 + 40; // gives 40-95%
+    return Math.round(Math.max(40, Math.min(95, normalized)));
+  });
+
+  // Pair with archetypes and sort to find dominant
+  const archetypeScores = ARCHETYPES.map((a, i) => ({ ...a, match: stepScores[i] }));
+  const sorted = [...archetypeScores].sort((a, b) => b.match - a.match);
+  const dominant = sorted[0];
+
+  // Populate dominant archetype
+  document.getElementById('archetype-name').textContent = dominant.name;
+  document.getElementById('archetype-match').innerHTML = `${dominant.match}<span class="text-gold">%</span>`;
+  document.getElementById('archetype-desc').textContent = dominant.description;
+
+  // Render breakdown — show all 6, sorted by match, with the dominant on top
+  const breakdownContainer = document.getElementById('archetype-breakdown');
+  breakdownContainer.innerHTML = '';
+
+  sorted.forEach((arch, idx) => {
+    const row = document.createElement('div');
+    row.className = 'archetype-row';
+    row.innerHTML = `
+      <div class="flex items-baseline justify-between mb-2">
+        <div class="flex items-center gap-3">
+          ${idx === 0 ? '<span class="text-xs tracking-widest uppercase text-gold-deep font-medium">Your type</span>' : ''}
+          <span class="font-display ${idx === 0 ? 'text-lg text-ink' : 'text-base text-ink-soft'}">${arch.name}</span>
+        </div>
+        <span class="font-display ${idx === 0 ? 'text-xl text-gold-deep' : 'text-base text-ink-soft'}">${arch.match}%</span>
+      </div>
+      <div class="match-bar">
+        <div class="match-bar-fill" style="width: 0%; background: ${arch.color};"></div>
+      </div>
+    `;
+    breakdownContainer.appendChild(row);
+  });
+
+  showView('view-results');
+
+  // Animate match bars in after a slight delay
+  setTimeout(() => {
+    const fills = breakdownContainer.querySelectorAll('.match-bar-fill');
+    sorted.forEach((arch, idx) => {
+      setTimeout(() => {
+        fills[idx].style.width = `${arch.match}%`;
+      }, idx * 120);
+    });
+  }, 400);
+}
+
+// ============================================================
+// PAYMENT MODAL
+// ============================================================
+function openPaymentModal() {
+  const modal = document.getElementById('payment-modal');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  document.body.classList.add('modal-open');
+}
+
+function closePaymentModal() {
+  const modal = document.getElementById('payment-modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+  document.body.classList.remove('modal-open');
+}
+
+function processPayment() {
+  const btn = document.getElementById('pay-btn');
+  const text = document.getElementById('pay-btn-text');
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+
+  // Simulate Stripe processing states
+  text.textContent = 'Connecting to Stripe…';
+
+  setTimeout(() => {
+    text.textContent = 'Confirming payment…';
+  }, 900);
+
+  setTimeout(() => {
+    text.textContent = 'Payment successful';
+    setTimeout(() => {
+      closePaymentModal();
+      showView('view-success');
+      // reset button for re-use
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      text.textContent = 'Pay $2.99 with Stripe';
+    }, 600);
+  }, 1800);
+}
+
+// Close modal on backdrop click
+document.getElementById('payment-modal').addEventListener('click', (e) => {
+  if (e.target.id === 'payment-modal') closePaymentModal();
+});
+
+// Close modal on escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('payment-modal').classList.contains('hidden')) {
+    closePaymentModal();
+  }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+// Start on hero view — quiz view is hidden by default.
+// (All views start hidden except hero which is visible.)
+</script>
+
+</body>
+</html>
