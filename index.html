@@ -279,7 +279,7 @@
 
         <p class="text-lg md:text-xl text-ink-soft max-w-xl leading-relaxed mb-10 font-light">
           Most people think they’re rational with money.<br><br>
-          They’re not.<br><br>
+          They’re not — and it quietly costs them more than they realize.<br><br>
           In 4 minutes, this test reveals what actually drives your decisions — and the hidden pattern behind your biggest financial mistakes.
         </p>
 
@@ -453,12 +453,12 @@
 
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/20 bg-white/5 text-[10px] tracking-[0.24em] uppercase text-gold-light mb-5">
             <span class="w-1.5 h-1.5 rounded-full bg-gold-light"></span>
-            You've only seen the surface
+            You've only seen the surface — and it's the part you already knew.
           </div>
 
           <h4 class="font-display text-3xl md:text-4xl leading-tight mb-4">
             What you just read<br>
-            <span class="serif-italic text-gold-light">is the part you already suspected.</span>
+            <span class="serif-italic text-gold-light">is the part you already suspected — not the part that's been costing you money.</span>
           </h4>
 
           <p class="text-cream/70 leading-relaxed mb-5 max-w-xl">
@@ -900,7 +900,7 @@ function computeAndShowResults() {
   const stepScores = STEPS.map((_, stepIdx) => {
     let sum = 0;
     for (let q = 0; q < QUESTIONS_PER_STEP; q++) {
-      sum += answers[`${stepIdx}-${q}`] || 0;
+      sum += answers[`${stepIdx}-${q}`] ?? 3;
     }
     const minSum = QUESTIONS_PER_STEP * 1;
     const maxSum = QUESTIONS_PER_STEP * 5;
