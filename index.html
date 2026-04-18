@@ -17,7 +17,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <script>
-  // Extend Tailwind with our custom design tokens
   tailwind.config = {
     theme: {
       extend: {
@@ -39,11 +38,9 @@
       }
     }
   }
-
 </script>
 
 <style>
-  /* ---------- Base ---------- */
   html { scroll-behavior: smooth; }
   body {
     font-family: 'Inter Tight', system-ui, sans-serif;
@@ -53,7 +50,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Subtle paper-grain texture overlay */
   body::before {
     content: '';
     position: fixed;
@@ -64,11 +60,9 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ---------- Typography ---------- */
   .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
   .serif-italic { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; }
 
-  /* ---------- Soft gradient orbs for hero atmosphere ---------- */
   .atmosphere {
     position: absolute;
     border-radius: 50%;
@@ -77,7 +71,6 @@
     pointer-events: none;
   }
 
-  /* ---------- Rating scale circles ---------- */
   .rating-circle {
     position: relative;
     border-radius: 50%;
@@ -100,14 +93,12 @@
   .rating-circle.selected { transform: scale(1.12); box-shadow: 0 8px 24px rgba(26, 31, 46, 0.15); }
   .rating-circle.selected::after { border-color: #1A1F2E; }
 
-  /* Scale colors */
   .rc-1 { background: #F4CCCB; }
   .rc-2 { background: #F8D9B8; }
   .rc-3 { background: #D9D9D4; }
   .rc-4 { background: #C9DBC4; }
   .rc-5 { background: #8FC4BD; }
 
-  /* ---------- Progress bar ---------- */
   .progress-track {
     height: 3px;
     background: rgba(26, 31, 46, 0.08);
@@ -121,7 +112,6 @@
     border-radius: 2px;
   }
 
-  /* ---------- Step transitions ---------- */
   .step-panel {
     animation: stepIn 0.5s cubic-bezier(0.25, 0.4, 0.25, 1) both;
   }
@@ -130,7 +120,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ---------- Question card staggered reveal ---------- */
   .question-card {
     animation: fadeUp 0.6s cubic-bezier(0.25, 0.4, 0.25, 1) both;
   }
@@ -139,7 +128,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ---------- Buttons ---------- */
   .btn-primary {
     background: #1A1F2E;
     color: #F7F2EA;
@@ -193,7 +181,6 @@
     box-shadow: 0 14px 40px rgba(184, 137, 74, 0.5);
   }
 
-  /* ---------- Archetype match bars ---------- */
   .match-bar {
     height: 6px;
     background: rgba(26, 31, 46, 0.08);
@@ -206,7 +193,6 @@
     transition: width 1.2s cubic-bezier(0.22, 0.6, 0.36, 1);
   }
 
-  /* ---------- Modal ---------- */
   .modal-backdrop {
     background: rgba(26, 31, 46, 0.55);
     backdrop-filter: blur(8px);
@@ -220,7 +206,6 @@
     to { opacity: 1; transform: translateY(0) scale(1); }
   }
 
-  /* ---------- Decorative serif ornament ---------- */
   .ornament {
     display: inline-block;
     width: 40px;
@@ -229,7 +214,6 @@
     vertical-align: middle;
   }
 
-  /* ---------- Hero breathe animation ---------- */
   @keyframes breathe {
     0%, 100% { transform: translate(0, 0) scale(1); }
     50% { transform: translate(20px, -10px) scale(1.05); }
@@ -237,7 +221,6 @@
   .breathe-1 { animation: breathe 14s ease-in-out infinite; }
   .breathe-2 { animation: breathe 18s ease-in-out infinite reverse; }
 
-  /* ---------- Success check animation ---------- */
   @keyframes drawCheck {
     to { stroke-dashoffset: 0; }
   }
@@ -247,27 +230,19 @@
     animation: drawCheck 0.8s 0.3s cubic-bezier(0.65, 0, 0.45, 1) forwards;
   }
 
-  /* ---------- Hide scrollbar on body when modal open ---------- */
   body.modal-open { overflow: hidden; }
 
-  /* ---------- Mobile tweaks ---------- */
   @media (max-width: 640px) {
     .rating-circle { width: 42px !important; height: 42px !important; }
   }
 
-  /* Ensure content sits above grain texture */
   main, nav, footer, .modal-root { position: relative; z-index: 2; }
-
-  /* Remove tap highlight */
   * { -webkit-tap-highlight-color: transparent; }
 </style>
 </head>
 
 <body class="font-sans">
 
-<!-- ============================================================
-     NAV
-============================================================ -->
 <nav class="relative z-10 px-6 md:px-12 py-6 flex items-center justify-between">
   <div class="flex items-center gap-2.5">
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -276,21 +251,14 @@
     </svg>
     <span class="font-display text-lg font-medium tracking-tight">Investor Archetype</span>
   </div>
-  <div class="hidden md:flex items-center gap-8 text-sm text-ink-soft">
-  </div>
+  <div class="hidden md:flex items-center gap-8 text-sm text-ink-soft"></div>
   <div class="text-sm text-ink-soft hidden sm:block">
     <span class="text-gold">◆</span> Est. 2024
   </div>
 </nav>
 
-<!-- ============================================================
-     MAIN APP
-============================================================ -->
 <main class="relative">
 
-  <!-- ============================================================
-       VIEW 1: HERO / LANDING
-  ============================================================ -->
   <section id="view-hero" class="min-h-[85vh] flex items-center px-6 md:px-12 py-16 relative overflow-hidden">
 
     <div class="atmosphere breathe-1" style="width:520px; height:520px; background:#D4AE77; top:-120px; right:-120px;"></div>
@@ -304,16 +272,15 @@
           <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">The Investor Archetype Assessment</span>
         </div>
 
-        <!-- TITLE: exact format "What Kind of / Investor Are You?" -->
         <h1 class="font-display text-5xl md:text-7xl leading-[1.02] tracking-tight text-ink font-normal mb-6">
           What Kind of<br>
           <span class="serif-italic text-gold-deep">Investor</span> Are You?
         </h1>
 
         <p class="text-lg md:text-xl text-ink-soft max-w-xl leading-relaxed mb-10 font-light">
-          Most people think they're good with money.<br><br>
-          They're not.<br><br>
-          In 8 minutes, this test reveals what actually drives your decisions — and the hidden pattern behind your biggest financial mistakes.
+          Most people think they’re rational with money.<br><br>
+          They’re not.<br><br>
+          In 4 minutes, this test reveals what actually drives your decisions — and the hidden pattern behind your biggest financial mistakes.
         </p>
 
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
@@ -321,12 +288,12 @@
             Find my investor type
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
-          <span class="text-sm text-ink-soft/70">No signup · Takes 8 minutes · Instant results</span>
+          <span class="text-sm text-ink-soft/70">No signup · Takes 4 minutes · Instant results</span>
         </div>
 
         <div class="flex flex-wrap gap-8 pt-8 border-t border-ink/10">
           <div>
-            <div class="font-display text-2xl text-ink">60</div>
+            <div class="font-display text-2xl text-ink">30</div>
             <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Thoughtful questions</div>
           </div>
           <div>
@@ -334,7 +301,7 @@
             <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Archetypes</div>
           </div>
           <div>
-            <div class="font-display text-2xl text-ink">8<span class="text-base text-ink-soft"> min</span></div>
+            <div class="font-display text-2xl text-ink">4<span class="text-base text-ink-soft"> min</span></div>
             <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Average time</div>
           </div>
           <div>
@@ -344,10 +311,7 @@
         </div>
       </div>
 
-      <!-- Visual panel — updated with new archetypes -->
       <div class="md:col-span-5 relative h-[460px] hidden md:block">
-
-        <!-- Back card — Patient Alchemist -->
         <div class="absolute top-8 right-4 w-64 h-80 bg-cream-deep rounded-sm shadow-xl rotate-[6deg] p-6 border border-ink/5">
           <div class="text-xs tracking-widest text-gold-deep uppercase mb-4">06 / 06</div>
           <div class="font-display text-2xl leading-tight">The Patient Alchemist</div>
@@ -355,7 +319,6 @@
           <div class="mt-4 text-xs text-ink-soft/70 italic">"You turn time itself into your most loyal asset."</div>
         </div>
 
-        <!-- Mid card — Strategic Guardian -->
         <div class="absolute top-16 right-16 w-64 h-80 bg-white rounded-sm shadow-2xl -rotate-[3deg] p-6 border border-ink/5">
           <div class="text-xs tracking-widest text-gold-deep uppercase mb-4">01 / 06</div>
           <div class="font-display text-2xl leading-tight">The Strategic Guardian</div>
@@ -363,7 +326,6 @@
           <div class="mt-4 text-xs text-ink-soft/70 italic">"Calm under pressure, bold when it counts."</div>
         </div>
 
-        <!-- Front card — Visionary Architect -->
         <div class="absolute top-4 right-28 w-64 h-80 bg-ink text-cream rounded-sm shadow-2xl rotate-[2deg] p-6">
           <div class="text-xs tracking-widest text-gold-light uppercase mb-4">02 / 06</div>
           <div class="font-display text-2xl leading-tight">The Visionary Architect</div>
@@ -381,12 +343,10 @@
     </div>
   </section>
 
-  <!-- Subtle divider -->
   <div class="max-w-6xl mx-auto px-6 md:px-12">
     <div class="h-px bg-ink/10"></div>
   </div>
 
-  <!-- Authority strip -->
   <section class="max-w-6xl mx-auto px-6 md:px-12 py-12">
     <div class="text-center text-xs tracking-[0.3em] uppercase text-ink-soft/60 mb-6">Created with input from</div>
     <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 font-display text-lg text-ink-soft/80">
@@ -400,11 +360,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       VIEW 2: THE QUIZ
-  ============================================================ -->
   <section id="view-quiz" class="hidden min-h-screen px-6 md:px-12 py-12 relative">
-
     <div class="max-w-3xl mx-auto">
 
       <div class="mb-12">
@@ -426,7 +382,7 @@
         </div>
 
         <div class="flex justify-between mt-3 text-xs text-ink-soft/60">
-          <span id="questions-answered">0 of 60 answered</span>
+          <span id="questions-answered">0 of 30 answered</span>
           <span id="step-title" class="serif-italic">Risk & Appetite</span>
         </div>
       </div>
@@ -452,9 +408,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       VIEW 3: TEASER RESULTS
-  ============================================================ -->
   <section id="view-results" class="hidden min-h-screen px-6 md:px-12 py-16 relative overflow-hidden">
 
     <div class="atmosphere" style="width:600px; height:600px; background:#D4AE77; top:-180px; left:50%; transform:translateX(-50%); opacity:0.25;"></div>
@@ -489,7 +442,6 @@
         </p>
       </div>
 
-      <!-- Unlock CTA -->
       <div class="bg-ink text-cream rounded-sm p-8 md:p-12 relative overflow-hidden mb-10">
         <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gold/30 to-transparent"></div>
 
@@ -532,12 +484,16 @@
                rel="noopener noreferrer"
                onclick="plausible('ClickStripe')"
                class="btn-gold text-base inline-flex items-center justify-center">
-              Unlock my full profile — $2.99
+              Unlock your full investor profile — $2.99
             </a>
             <div class="text-sm text-cream/60">
               <span class="line-through">$19.99</span>
               <span class="ml-2 text-gold-light">Less than a coffee · Instant access</span>
             </div>
+          </div>
+
+          <div class="text-xs text-cream/50 mt-3">
+            No subscription · One-time payment
           </div>
 
           <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-cream/50">
@@ -560,9 +516,6 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       VIEW 4: SUCCESS
-  ============================================================ -->
   <section id="view-success" class="hidden min-h-[90vh] flex items-center px-6 md:px-12 py-16 relative overflow-hidden">
 
     <div class="atmosphere" style="width:500px; height:500px; background:#8FC4BD; top:10%; left:50%; transform:translateX(-50%); opacity:0.3;"></div>
@@ -636,9 +589,6 @@
 
 </main>
 
-<!-- ============================================================
-     FOOTER
-============================================================ -->
 <footer class="relative z-10 px-6 md:px-12 py-10 border-t border-ink/10 mt-8">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-ink-soft/70">
     <div class="flex items-center gap-2">
@@ -651,29 +601,15 @@
   </div>
 </footer>
 
-<!-- ============================================================
-     JAVASCRIPT
-============================================================ -->
 <script>
-// ============================================================
-// QUIZ DATA
-// 60 questions across 6 steps — rewritten in plain, everyday
-// language so anyone (including total beginners) can answer honestly.
-// Each question is a simple "I-statement" people can relate to.
-// ============================================================
 const STEPS = [
   {
     title: "Risk & Appetite",
     questions: [
       "If my investments dropped 20% in a week, I could stay calm and not panic.",
       "I'd rather earn higher returns, even if it means some bumpy years along the way.",
-      "The idea of losing money short-term doesn't really scare me.",
-      "I tend to see market drops as a chance to buy, not a reason to run.",
       "I'm okay putting real money behind an idea I believe in.",
-      "I'd rather swing for bigger wins than settle for a small, safe return.",
       "When things get shaky, I usually keep a cool head.",
-      "I don't need to check my accounts every day to feel okay.",
-      "Taking some risk feels exciting to me, not stressful.",
       "I've stuck with an investment through a rough period — and I was glad I did."
     ]
   },
@@ -682,13 +618,8 @@ const STEPS = [
     questions: [
       "I'm comfortable waiting years — even decades — for my money to grow.",
       "I rarely check my portfolio more than once a month.",
-      "Patience is one of my real strengths when it comes to money.",
       "I believe the best gains come from holding good things for a long time.",
-      "Daily market news doesn't change how I think long-term.",
-      "I think about my future self when I make money decisions today.",
       "I'd rather own something for 20 years than flip it for a quick win.",
-      "I'm not in a rush to see results — I trust the process.",
-      "When the market moves, I don't feel pressure to 'do something.'",
       "I've held onto an investment for years without needing to touch it."
     ]
   },
@@ -697,13 +628,8 @@ const STEPS = [
     questions: [
       "I like to understand what I'm investing in before I commit.",
       "I can explain, in simple words, why I own what I own.",
-      "I enjoy learning how companies and industries actually work.",
       "I trust my own thinking more than hot tips from others.",
       "I'm willing to change my mind when I learn something new.",
-      "I'd rather know one thing deeply than ten things shallowly.",
-      "I like doing my own digging before making a decision.",
-      "I keep track of why I made a choice, so I can learn from it later.",
-      "I enjoy reading about business, economy, or finance in my free time.",
       "I'd rather own a few things I understand well than lots of things I don't."
     ]
   },
@@ -713,12 +639,7 @@ const STEPS = [
       "I don't feel the need to follow what everyone else is buying.",
       "I rarely act on tips I get from friends, family, or social media.",
       "I'm comfortable holding an opinion that's different from the crowd.",
-      "I can stick with my choices even when others doubt them.",
-      "I find most financial news more noisy than useful.",
       "I stay away from trendy investments just because they're trendy.",
-      "Some of my best ideas come from unexpected places.",
-      "I care more about being right for me than fitting in.",
-      "I'm okay being early to something, even if it looks odd at first.",
       "I've done well by going my own way, rather than following the pack."
     ]
   },
@@ -727,13 +648,8 @@ const STEPS = [
     questions: [
       "I have a simple routine I follow with my money.",
       "I set rules for myself and try to stick to them.",
-      "I prefer a steady, boring plan over something exciting but risky.",
-      "I keep my 'fun money' separate from my long-term savings.",
-      "I'm honest with myself about my wins and my mistakes.",
       "I like to automate things so I don't have to think about them.",
-      "I find peace in having a clear plan for my finances.",
       "I know in advance what would make me change course.",
-      "Good habits matter more to me than any single lucky move.",
       "I trust the process I've built over any one decision."
     ]
   },
@@ -742,60 +658,45 @@ const STEPS = [
     questions: [
       "I have a clear picture of what I want my money to do for my life.",
       "I prefer investments that line up with what I believe in.",
-      "I think about the kind of world my money is helping build.",
       "Money is a tool for me — not a scoreboard.",
-      "I'd rather own a few quality things than lots of ordinary ones.",
       "Success, to me, is about freedom more than big numbers.",
-      "My investments say something about the future I want to see.",
-      "I'm okay saying no to opportunities that don't feel right for me.",
-      "I care about leaving something meaningful behind.",
       "I want to be proud of what I own — today and twenty years from now."
     ]
   }
 ];
 
-// ============================================================
-// ARCHETYPES — The six new archetypes, each tied to one step.
-// Descriptions are warm, flattering, and premium in tone.
-// ============================================================
 const ARCHETYPES = [
   {
-    // STEP 0 — Risk & Appetite
     name: "The Strategic Guardian",
     tagline: "Brave in the right moments. Careful in the others.",
     color: "#3F5A7D",
     description: "You have a rare ability most people don't: you can take real risks without losing your footing. You're bold when it counts and careful when it doesn't — and people naturally trust your judgment. But there's a specific pattern in when you hold back that you probably haven't noticed yet. It's the thing quietly shaping your best — and worst — calls."
   },
   {
-    // STEP 1 — Time Horizon
     name: "The Visionary Architect",
     tagline: "You see the future a little earlier than most.",
     color: "#B8894A",
     description: "You think in years, not weeks — and that patience is exactly what turns ordinary choices into extraordinary ones. The future tends to favor people who can wait for it. But the same instinct that makes you early has a hidden cost most Visionaries don't notice until it's already shaped a decade of decisions."
   },
   {
-    // STEP 2 — Conviction & Research
     name: "The Balanced Optimizer",
     tagline: "Thoughtful, steady, quietly unstoppable.",
     color: "#6B8370",
     description: "You bring a careful, well-rounded mind to every decision you make. You study, you weigh, you act with quiet confidence — and you're right far more often than you're wrong. But there's one specific kind of moment where this same strength becomes the thing that holds you back. Most Optimizers only see it in hindsight."
   },
   {
-    // STEP 3 — Social & Influence
     name: "The Intuitive Hunter",
     tagline: "You see patterns the room can't.",
     color: "#C4745D",
     description: "You have a sharp, independent instinct that's hard to teach and impossible to fake. You notice what other people walk right past — and you're comfortable acting on what you see, even when the room disagrees. That self-trust is a real gift. What you probably don't know yet is the one specific blind spot that shape of instinct always comes with."
   },
   {
-    // STEP 4 — Systems & Discipline
     name: "The Calculated Dreamer",
     tagline: "Big dreams, quietly engineered into reality.",
     color: "#2D3447",
     description: "You have the rare combination of imagination and discipline — the ambition to dream big and the patience to actually build it. Your dreams don't stay dreams for long. But there's a hidden rhythm to how Dreamers quietly sabotage their own plans, and it lives in the exact place you'd least expect to look."
   },
   {
-    // STEP 5 — Purpose & Values
     name: "The Patient Alchemist",
     tagline: "You turn time itself into your most loyal asset.",
     color: "#8E6935",
@@ -803,18 +704,12 @@ const ARCHETYPES = [
   }
 ];
 
-// ============================================================
-// STATE
-// ============================================================
 let currentStep = 0;
 let answers = {};
 const TOTAL_STEPS = STEPS.length;
-const QUESTIONS_PER_STEP = 10;
+const QUESTIONS_PER_STEP = 5;
 const TOTAL_QUESTIONS = TOTAL_STEPS * QUESTIONS_PER_STEP;
 
-// ============================================================
-// VIEW MANAGEMENT
-// ============================================================
 function showView(viewId) {
   ['view-hero', 'view-quiz', 'view-results', 'view-success'].forEach(id => {
     document.getElementById(id).classList.add('hidden');
@@ -824,8 +719,7 @@ function showView(viewId) {
 }
 
 function startQuiz() {
-  plausible('StartQuiz')
-
+  plausible('StartQuiz');
   currentStep = 0;
   answers = {};
   renderStep();
@@ -845,9 +739,6 @@ function resetToHome() {
   showView('view-hero');
 }
 
-// ============================================================
-// QUIZ RENDERING
-// ============================================================
 function renderStep() {
   const step = STEPS[currentStep];
   const container = document.getElementById('questions-container');
@@ -951,9 +842,6 @@ function updateNextButton() {
   }
 }
 
-// ============================================================
-// INTERACTION
-// ============================================================
 function selectAnswer(stepIdx, qIdx, value) {
   const key = `${stepIdx}-${qIdx}`;
   answers[key] = value;
@@ -1006,18 +894,17 @@ function prevStep() {
   }
 }
 
-// ============================================================
-// RESULTS COMPUTATION
-// ============================================================
 function computeAndShowResults() {
-  plausible('ViewResults')
+  plausible('ViewResults');
 
   const stepScores = STEPS.map((_, stepIdx) => {
     let sum = 0;
     for (let q = 0; q < QUESTIONS_PER_STEP; q++) {
       sum += answers[`${stepIdx}-${q}`] || 0;
     }
-    const normalized = ((sum - 10) / 40) * 55 + 40;
+    const minSum = QUESTIONS_PER_STEP * 1;
+    const maxSum = QUESTIONS_PER_STEP * 5;
+    const normalized = ((sum - minSum) / (maxSum - minSum)) * 55 + 40;
     return Math.round(Math.max(40, Math.min(95, normalized)));
   });
 
@@ -1061,7 +948,6 @@ function computeAndShowResults() {
     });
   }, 400);
 }
-
 
 if (window.location.hash === '#success') {
   showView('view-success');
