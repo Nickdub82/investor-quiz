@@ -269,44 +269,46 @@
       <div class="md:col-span-7">
         <div class="flex items-center gap-3 mb-8">
           <span class="ornament"></span>
-          <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">The Investor Archetype Assessment</span>
+          <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">A 4-minute behavioral test</span>
         </div>
 
-        <h1 class="font-display text-5xl md:text-7xl leading-[1.02] tracking-tight text-ink font-normal mb-6">
-          What Kind of<br>
-          <span class="serif-italic text-gold-deep">Investor</span> Are You?
+        <h1 class="font-display text-5xl md:text-7xl tracking-tight text-ink font-normal mb-6 leading-[1.02]">
+          You're not bad at investing.<br>
+          You're just <span class="serif-italic text-gold-deep">blind to one pattern.</span>
         </h1>
 
-        <p class="text-lg md:text-xl text-ink-soft max-w-xl leading-relaxed mb-10 font-light">
-          Most people think they’re rational with money.<br><br>
-          They’re not — and it quietly costs them more than they realize.<br><br>
-          In 4 minutes, this test reveals what actually drives your decisions — and the hidden pattern behind your biggest financial mistakes.
+        <p class="text-lg md:text-xl text-ink-soft max-w-xl leading-relaxed mb-6 font-light">
+          Most investors never see the exact moment they make their biggest mistake. This 4-minute test reveals yours — and what it’s been quietly costing you.
+        </p>
+
+        <p class="text-sm text-ink-soft mb-6">
+          Find your investor pattern — and what it’s been costing you.
         </p>
 
         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-12">
           <button onclick="startQuiz()" class="btn-primary text-base">
-            Find my investor type
+            Find the pattern
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
-          <span class="text-sm text-ink-soft/70">No signup · Takes 4 minutes · Instant results</span>
+          <span class="text-sm text-ink-soft/70">Free · Takes 4 minutes · Instant insight</span>
         </div>
 
         <div class="flex flex-wrap gap-8 pt-8 border-t border-ink/10">
           <div>
             <div class="font-display text-2xl text-ink">30</div>
-            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Thoughtful questions</div>
+            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Honest questions</div>
           </div>
           <div>
             <div class="font-display text-2xl text-ink">6</div>
-            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Archetypes</div>
+            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Hidden patterns</div>
           </div>
           <div>
             <div class="font-display text-2xl text-ink">4<span class="text-base text-ink-soft"> min</span></div>
-            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Average time</div>
+            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">To read yourself</div>
           </div>
           <div>
             <div class="font-display text-2xl text-ink">Instant<span class="text-gold">.</span></div>
-            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">Results & insights</div>
+            <div class="text-xs tracking-wider uppercase text-ink-soft/70 mt-1">No email required</div>
           </div>
         </div>
       </div>
@@ -417,13 +419,13 @@
       <div class="text-center mb-8">
         <div class="inline-flex items-center gap-3">
           <span class="ornament"></span>
-          <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">The First Half of Your Answer</span>
+          <span class="text-xs tracking-[0.25em] uppercase text-gold-deep font-medium">Part 1 of 2 · The diagnostic</span>
           <span class="ornament"></span>
         </div>
       </div>
 
       <h2 class="font-display text-4xl md:text-6xl text-center leading-[1.05] mb-4">
-        Your dominant type is
+        You're operating as
       </h2>
       <h3 id="archetype-name" class="font-display serif-italic text-5xl md:text-7xl text-center text-gold-deep leading-tight mb-8">
         The Visionary Architect
@@ -436,10 +438,22 @@
         </div>
       </div>
 
+      <div class="max-w-2xl mx-auto text-center mb-10">
+        <p class="text-lg md:text-xl text-ink leading-relaxed font-light">
+          Here's what this means.<br><br>
+          Every <span id="archetype-ref-1" class="serif-italic text-gold-deep">Visionary Architect</span> makes roughly the same mistake at the same moment. It doesn't feel like a mistake. It feels like discipline.<br><br>
+          <span class="font-medium">That's the whole point.</span> You can't see it from where you're standing.
+        </p>
+      </div>
+
       <div class="max-w-2xl mx-auto text-center mb-8">
+        <div class="text-xs tracking-[0.25em] uppercase text-ink-muted mb-4">Part of the pattern you probably already suspect</div>
         <p id="archetype-desc" class="text-lg md:text-xl text-ink-soft leading-relaxed font-light">
           You think in years, not weeks — and that patience is exactly what turns ordinary choices into extraordinary ones. The future tends to favor people who can wait for it. But the same instinct that makes you early has a hidden cost most Visionaries don't notice until it's already shaped a decade of decisions.
         </p>
+        <div class="text-sm text-gold-deep italic mt-6">
+          The cost — and how to stop paying it — is in Part 2.
+        </div>
       </div>
 
       <div class="bg-ink text-cream rounded-sm p-8 md:p-12 relative overflow-hidden mb-10">
@@ -448,34 +462,37 @@
         <div class="relative">
           <div class="flex items-center gap-2 mb-4">
             <span class="w-10 h-px bg-gold-light"></span>
-            <span class="text-xs tracking-[0.25em] uppercase text-gold-light">The Full Report</span>
+            <span class="text-xs tracking-[0.25em] uppercase text-gold-light">Part 2 · The cost</span>
           </div>
 
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/20 bg-white/5 text-[10px] tracking-[0.24em] uppercase text-gold-light mb-5">
             <span class="w-1.5 h-1.5 rounded-full bg-gold-light"></span>
-            You've only seen the surface — and it's the part you already knew.
+            What you just read is the easy part
           </div>
 
-          <h4 class="font-display text-3xl md:text-4xl leading-tight mb-4">
+          <h4 class="font-display text-3xl md:text-4xl leading-tight mb-6">
             What you just read<br>
-            <span class="serif-italic text-gold-light">is the part you already suspected — not the part that's been costing you money.</span>
+            <span class="serif-italic text-gold-light">is the part you already suspected.</span><br><br>
+            The part that's been<br>
+            <span class="serif-italic text-gold-light">quietly costing you</span> is on the next page.
           </h4>
 
-          <p class="text-cream/70 leading-relaxed mb-5 max-w-xl">
-            The real value is the part that explains <span class="text-cream">why you keep repeating the same money patterns</span> — even when you know better.
+          <p class="text-cream/80 leading-relaxed mb-5 max-w-xl">
+            12 pages. Written for your exact pattern.
           </p>
 
-          <p class="text-sm text-cream/55 mb-8 max-w-xl">
-            Your full profile breaks down your strengths, blind spots, portfolio tendencies, and the exact pattern most likely to cost you money over time.
+          <p class="text-sm text-cream/60 leading-relaxed mb-8 max-w-xl">
+            Inside: the specific mistake your type makes at the specific moment it happens. What it's cost you — in dollars, in years, in outcomes you won't get back. The 7 rules that would rewire it. Two futures — one where nothing changes, one where it does.<br><br>
+            <span class="text-cream/80 italic">This is not a guide. It's a diagnosis.</span>
           </p>
 
           <ul class="grid sm:grid-cols-2 gap-3 mb-10 text-sm text-cream/80">
-            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Detailed archetype profile</li>
-            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Your strengths & blind spots</li>
-            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Suggested asset allocation</li>
-            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Sample portfolio ideas</li>
-            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> A decision-making framework</li>
-            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> A curated reading list</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Your hidden behavioral pattern, named</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> The exact moment it kicks in</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> What it's been costing you</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> 7 rules calibrated to your type</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> Two futures — and how to pick</li>
+            <li class="flex items-start gap-2"><span class="text-gold-light mt-0.5">◆</span> The final identity reframe</li>
           </ul>
 
           <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -484,22 +501,27 @@
                rel="noopener noreferrer"
                onclick="plausible('ClickStripe')"
                class="btn-gold text-base inline-flex items-center justify-center">
-              Unlock your full investor profile — $2.99
+              Show me the 90% I can't see — $2.99
             </a>
             <div class="text-sm text-cream/60">
               <span class="line-through">$19.99</span>
-              <span class="ml-2 text-gold-light">Less than a coffee · Instant access</span>
+              <span class="ml-2 text-gold-light">Launch pricing</span>
             </div>
           </div>
 
-          <div class="text-xs text-cream/50 mt-3">
-            No subscription · One-time payment
+          <div class="text-sm text-cream/70 mt-6 max-w-md italic leading-relaxed">
+            $2.99 — once.<br>
+            For the version of you that has been quietly under-performing the version of you that could have been.
+          </div>
+
+          <div class="text-xs text-cream/50 mt-4">
+            One-time payment · Instant access · 7-day refund
           </div>
 
           <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-cream/50">
-            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secure payment</span>
-            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> Instant access</span>
-            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4Z"/></svg> Full dossier</span>
+            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Stripe · 256-bit encrypted</span>
+            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg> In your inbox in 60 seconds</span>
+            <span class="flex items-center gap-1.5"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4Z"/></svg> Full refund, no questions</span>
           </div>
         </div>
       </div>
@@ -913,6 +935,13 @@ function computeAndShowResults() {
   const dominant = sorted[0];
 
   document.getElementById('archetype-name').textContent = dominant.name;
+  const refEl = document.getElementById('archetype-ref-1');
+  if (refEl) {
+    const shortName = dominant.name.toLowerCase().startsWith('the ')
+      ? dominant.name.substring(4)
+      : dominant.name;
+    refEl.textContent = shortName;
+  }
   document.getElementById('archetype-match').innerHTML = `${dominant.match}<span class="text-gold">%</span>`;
   document.getElementById('archetype-desc').textContent = dominant.description;
 
